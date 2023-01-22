@@ -1,0 +1,81 @@
+﻿<Window x:Class="AutoSerivce.Views.Windows.AddEditServiceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AutoSerivce.Views.Windows"
+        mc:Ignorable="d"
+        Title="AddEditServiceWindow" 
+        Height="450" 
+        Width="800" FontSize="14"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="57*"/>
+            <RowDefinition Height="5*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <StackPanel Width="190">
+                <StackPanel Visibility="Collapsed">
+                    <TextBlock Text="Id"/>
+                    <TextBox Text="{Binding CurrentService.Id}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Название услуги"/>
+                    <TextBox Text="{Binding CurrentService.Title}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Цена"/>
+                    <TextBox Text="{Binding CurrentService.Cost}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Длительность работы"/>
+                    <TextBox Text="{Binding CurrentService.DurationWork}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Описание"/>
+                    <TextBox Text="{Binding CurrentService.Description}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Скидка"/>
+                    <TextBox Text="{Binding CurrentService.Discount}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Width="190" Margin="20, 0, 0, 0">
+                <StackPanel>
+                    <TextBlock Text="Описание услуги"/>
+                    <TextBox TextWrapping="Wrap" Height="215" Text="{Binding CurrentService.Description}"/>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel Width="190" Margin="20, 0, 0, 0">
+                <StackPanel>
+                    <TextBlock Text="Главное изображение услуги"/>
+                    <Border BorderBrush="#FFFFFFE1" BorderThickness="3">
+                        <Image Height="215" Source="{Binding CurrentService.ImagePath}"/>
+                    </Border>
+
+                    <Button Content="Добавить" Margin="5 5" Background="#FFFF9C1A"/>
+
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+
+        <Button Content="Сохранить внесенные данные" 
+                Grid.Row="1" 
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="#FFFF9C1A"/>
+
+    </Grid>
+</Window>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:AutoSerivce"
         xmlns:vm="clr-namespace:AutoSerivce.ViewModels"
         mc:Ignorable="d" FontSize="14"
-        Title="MainWindow" 
+        Title="{Binding Title}" 
         Height="820"
         Width="1000"
         WindowStartupLocation="CenterScreen"
@@ -27,8 +27,8 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Файл"/>
             <MenuItem Header="Сервис">
-                <MenuItem Header="Админ панель "/>
-                <MenuItem Header="О программе "/>
+                <MenuItem Header="Админ панель"/>
+                <MenuItem Header="О программе"/>
                 <Separator/>
                 <MenuItem Header="Выход"/>
             </MenuItem>
@@ -140,7 +140,8 @@
                     VerticalAlignment="Center" 
                     Orientation="Horizontal" >
 
-            <Button Content="Добавить" Margin="0, 0, 5, 0" Background="#FFFF9C1A"/>
+            <Button Content="Добавить" Margin="0, 0, 5, 0" Background="#FFFF9C1A" 
+                    Command="{Binding AddServiceCommand}"/>
             <Button Content="Редактировать" Margin="0, 0, 5, 0" Background="#FFFF9C1A"/>
             <Button Content="Удалить" Margin="0, 0, 5, 0" Background="#FFFF9C1A"/>
         </StackPanel>
