@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AutoSerivce.Views.Windows"
+      xmlns:local="clr-namespace:AutoSerivce.Views.Windows"
         mc:Ignorable="d"
         Title="AddEditServiceWindow" 
         Height="450" 
@@ -41,11 +41,6 @@
                 </StackPanel>
 
                 <StackPanel>
-                    <TextBlock Text="Описание"/>
-                    <TextBox Text="{Binding CurrentService.Description}"/>
-                </StackPanel>
-
-                <StackPanel>
                     <TextBlock Text="Скидка"/>
                     <TextBox Text="{Binding CurrentService.Discount}"/>
                 </StackPanel>
@@ -65,7 +60,8 @@
                         <Image Height="215" Source="{Binding CurrentService.ImagePath}"/>
                     </Border>
 
-                    <Button Content="Добавить" Margin="5 5" Background="#FFFF9C1A"/>
+                    <Button Content="Добавить" Margin="5 5" Background="#FFFF9C1A" 
+                            Command="{Binding AddMainImageService}"/>
 
                 </StackPanel>
             </StackPanel>
@@ -75,7 +71,8 @@
                 Grid.Row="1" 
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Background="#FFFF9C1A"/>
+                Background="#FFFF9C1A"
+                Command="{Binding SaveServiceCommand}"/>
 
     </Grid>
 </Window>

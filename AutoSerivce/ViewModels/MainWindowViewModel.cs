@@ -21,6 +21,7 @@ namespace AutoSerivce.ViewModels
 
             AddServiceCommand = new LambdaCommand(OnAddServiceCommandExecuted, CanAddServiceCommandExecute);
             EditServiceCommand = new LambdaCommand(OnEditServiceCommandExecuted, CanEditServiceCommandExecute);
+            DeleteServiceCommand = new LambdaCommand(OnDeleteServiceCommandExecuted, CanDeleteServiceCommandExecute);
         }
 
         #region Свойства
@@ -33,9 +34,6 @@ namespace AutoSerivce.ViewModels
 
         private IEnumerable<Service> _currentServices;
         public IEnumerable<Service> CurrentServices { get => _currentServices; set => Set(ref _currentServices, value); }
-
-        //private Visibility _idVisibility;
-        //public Visibility IdVisibility { get => _idVisibility; set => Set(ref _idVisibility, value); }
 
         #endregion
 
@@ -57,6 +55,11 @@ namespace AutoSerivce.ViewModels
             addEditServiceWindow.Title = "Добавление новой услуги";
 
             addEditServiceWindow.ShowDialog();
+
+            using (AutoServiceContext db = new AutoServiceContext())
+            {
+                CurrentServices = db.Services.ToList();
+            }
         }
 
         public ICommand EditServiceCommand { get; set; }
@@ -83,7 +86,38 @@ namespace AutoSerivce.ViewModels
             addEditServiceWindow.Title = $"Редактирование услуги: {((Service)p).Title} | Id: {((Service)p).Id}";
 
             addEditServiceWindow.ShowDialog();
+
+            using (AutoServiceContext db = new AutoServiceContext())
+            {
+                CurrentServices = db.Services.ToList();
+            }
         }
+
+        public ICommand DeleteServiceCommand { get; set; }
+        private bool CanDeleteServiceCommandExecute(object p)
+        {
+            if ((Service)p != null)
+                return true;
+
+            return false;
+        }
+        private void OnDeleteServiceCommandExecuted(object p)
+        {
+            if (MessageBox.Show($"Вы точно хотите удалить {((Service)p).Title}", "Внимание",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                using (AutoServiceContext db = new AutoServiceContext())
+                {
+                    db.Services.Remove((Service)p);
+                    db.SaveChanges();
+
+                    MessageBox.Show($"Услуга {((Service)p).Title} удалена !");
+
+                    CurrentServices = db.Services.ToList();
+                }
+            }
+        }
+
 
 
         #endregion

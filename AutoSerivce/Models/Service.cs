@@ -1,9 +1,13 @@
-﻿using System;
+﻿using AutoSerivce.ViewModels.Base;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
+using System.Windows;
 
 namespace AutoSerivce.Models;
 
-public partial class Service
+public partial class Service : ViewModel
 {
     public int Id { get; set; }
 
@@ -25,5 +29,30 @@ public partial class Service
 
 
     //Изображение
-    public virtual string? ImagePath { get { return System.IO.Path.Combine(Environment.CurrentDirectory, $"Услуги автосервиса/{MainImagePath}"); } }
+    //public virtual string? ImagePath { get { return System.IO.Path.Combine(Environment.CurrentDirectory, $"Услуги автосервиса/{MainImagePath}"); }  }
+
+    private string _imagePath;
+    [NotMapped]
+    public virtual string? ImagePath
+    {
+        get
+        {
+            if (File.Exists(System.IO.Path.Combine(Environment.CurrentDirectory, $"Услуги автосервиса/{MainImagePath}")))
+            {
+                _imagePath = System.IO.Path.Combine(Environment.CurrentDirectory, $"Услуги автосервиса/{MainImagePath}");
+                return _imagePath;
+            }
+            else
+            {
+                MainImagePath = "picture.jpg";
+                return null;
+            }
+        }
+
+        set
+        {
+            Set(ref _imagePath, value);
+        }
+
+    }
 }

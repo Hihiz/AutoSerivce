@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoSerivce"
-        xmlns:vm="clr-namespace:AutoSerivce.ViewModels"
+        xmlns:vm="clr-namespace:AutoSerivce.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d" FontSize="14"
         Title="{Binding Title}" 
         Height="820"
@@ -27,7 +27,7 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Файл"/>
             <MenuItem Header="Сервис">
-                <MenuItem Header="Админ панель"/>
+                <MenuItem Header="Администратор" Command="{Binding AdminPanelCommand}"/>
                 <MenuItem Header="О программе"/>
                 <Separator/>
                 <MenuItem Header="Выход"/>
@@ -133,6 +133,14 @@
                 </Style>
             </ListView.ItemContainerStyle>
 
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction
+                        Command="{Binding EditServiceCommand}"
+                        CommandParameter="{Binding ElementName=autoSerivceListView, Path=SelectedValue}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
         </ListView>
 
         <StackPanel Grid.Row="3"
@@ -144,7 +152,8 @@
                     Command="{Binding AddServiceCommand}"/>
             <Button Content="Редактировать" Margin="0, 0, 5, 0" Background="#FFFF9C1A"
                     Command="{Binding EditServiceCommand}" CommandParameter="{Binding ElementName=autoSerivceListView, Path=SelectedValue}"/>
-            <Button Content="Удалить" Margin="0, 0, 5, 0" Background="#FFFF9C1A"/>
+            <Button Content="Удалить" Margin="0, 0, 5, 0" Background="#FFFF9C1A"
+                    Command="{Binding DeleteServiceCommand}" CommandParameter="{Binding ElementName=autoSerivceListView, Path=SelectedValue}"/>
         </StackPanel>
 
     </Grid>
