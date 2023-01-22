@@ -20,9 +20,9 @@
                     VerticalAlignment="Center">
 
             <StackPanel Width="190">
-                <StackPanel Visibility="Collapsed">
+                <StackPanel Visibility="{Binding IdVisibility}">
                     <TextBlock Text="Id"/>
-                    <TextBox Text="{Binding CurrentService.Id}"/>
+                    <TextBox Text="{Binding CurrentService.Id}" IsEnabled="False"/>
                 </StackPanel>
 
                 <StackPanel>

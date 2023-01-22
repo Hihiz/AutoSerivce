@@ -4,7 +4,9 @@ using AutoSerivce.ViewModels.Base;
 using AutoSerivce.Views.Windows;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace AutoSerivce.ViewModels
 {
@@ -18,6 +20,7 @@ namespace AutoSerivce.ViewModels
             }
 
             AddServiceCommand = new LambdaCommand(OnAddServiceCommandExecuted, CanAddServiceCommandExecute);
+            EditServiceCommand = new LambdaCommand(OnEditServiceCommandExecuted, CanEditServiceCommandExecute);
         }
 
         #region Свойства
@@ -30,6 +33,9 @@ namespace AutoSerivce.ViewModels
 
         private IEnumerable<Service> _currentServices;
         public IEnumerable<Service> CurrentServices { get => _currentServices; set => Set(ref _currentServices, value); }
+
+        //private Visibility _idVisibility;
+        //public Visibility IdVisibility { get => _idVisibility; set => Set(ref _idVisibility, value); }
 
         #endregion
 
@@ -46,10 +52,39 @@ namespace AutoSerivce.ViewModels
 
             addEditServiceWindow.DataContext = addEditServiceWindowViewModel;
 
-            addEditServiceWindow.Title = "Добавление новой услуги";
-            addEditServiceWindow.ShowDialog();
+            addEditServiceWindowViewModel.IdVisibility = Visibility.Collapsed;
 
+            addEditServiceWindow.Title = "Добавление новой услуги";
+
+            addEditServiceWindow.ShowDialog();
         }
+
+        public ICommand EditServiceCommand { get; set; }
+        private bool CanEditServiceCommandExecute(object p)
+        {
+            if ((Service)p != null)
+                return true;
+
+            return false;
+        }
+        public void OnEditServiceCommandExecuted(object p)
+        {
+            AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow();
+            AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel();
+
+            addEditServiceWindow.DataContext = addEditServiceWindowViewModel;
+
+            CurrentService = (Service)p;
+
+            addEditServiceWindowViewModel.CurrentService = CurrentService;
+
+            addEditServiceWindowViewModel.IdVisibility = Visibility.Visible;
+
+            addEditServiceWindow.Title = $"Редактирование услуги: {((Service)p).Title} | Id: {((Service)p).Id}";
+
+            addEditServiceWindow.ShowDialog();
+        }
+
 
         #endregion
 
