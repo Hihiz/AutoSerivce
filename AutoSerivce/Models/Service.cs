@@ -22,4 +22,6 @@ public partial class Service
     public virtual ICollection<ClientService> ClientServices { get; } = new List<ClientService>();
 
     public virtual ICollection<ServicePhoto> ServicePhotos { get; } = new List<ServicePhoto>();
+
+    public virtual string? ImagePath { get { return System.IO.Path.Combine(Environment.CurrentDirectory, $"Услуги автосервиса/{MainImagePath}"); } } // 
 }
