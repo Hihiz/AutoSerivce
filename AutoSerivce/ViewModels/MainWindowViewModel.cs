@@ -6,12 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Navigation;
 
 namespace AutoSerivce.ViewModels
 {
     public class MainWindowViewModel : ViewModel
     {
+
         public MainWindowViewModel()
         {
             using (AutoServiceContext db = new AutoServiceContext())
@@ -22,6 +22,7 @@ namespace AutoSerivce.ViewModels
             AddServiceCommand = new LambdaCommand(OnAddServiceCommandExecuted, CanAddServiceCommandExecute);
             EditServiceCommand = new LambdaCommand(OnEditServiceCommandExecuted, CanEditServiceCommandExecute);
             DeleteServiceCommand = new LambdaCommand(OnDeleteServiceCommandExecuted, CanDeleteServiceCommandExecute);
+            AdminPanelCommand = new LambdaCommand(OnAdminPanelCommandExecuted, CanAdminPanelCommandExecute);
         }
 
         #region Свойства
@@ -34,6 +35,9 @@ namespace AutoSerivce.ViewModels
 
         private IEnumerable<Service> _currentServices;
         public IEnumerable<Service> CurrentServices { get => _currentServices; set => Set(ref _currentServices, value); }
+
+        private Visibility _adminPanelVisibility = Visibility.Collapsed;
+        public Visibility AdminPanelVisibility { get => _adminPanelVisibility; set => Set(ref _adminPanelVisibility, value); }
 
         #endregion
 
@@ -53,7 +57,6 @@ namespace AutoSerivce.ViewModels
             addEditServiceWindowViewModel.IdVisibility = Visibility.Collapsed;
 
             addEditServiceWindow.Title = "Добавление новой услуги";
-
             addEditServiceWindow.ShowDialog();
 
             using (AutoServiceContext db = new AutoServiceContext())
@@ -80,11 +83,9 @@ namespace AutoSerivce.ViewModels
             CurrentService = (Service)p;
 
             addEditServiceWindowViewModel.CurrentService = CurrentService;
-
             addEditServiceWindowViewModel.IdVisibility = Visibility.Visible;
 
             addEditServiceWindow.Title = $"Редактирование услуги: {((Service)p).Title} | Id: {((Service)p).Id}";
-
             addEditServiceWindow.ShowDialog();
 
             using (AutoServiceContext db = new AutoServiceContext())
@@ -118,6 +119,20 @@ namespace AutoSerivce.ViewModels
             }
         }
 
+        public ICommand AdminPanelCommand { get; set; }
+        private bool CanAdminPanelCommandExecute(object p) => true;
+        private void OnAdminPanelCommandExecuted(object p)
+        {
+            AdminWindow adminWindow = new AdminWindow();
+            AdminWindowViewModel adminWindowViewModel = new AdminWindowViewModel();
+
+            adminWindow.DataContext = adminWindowViewModel;
+
+            adminWindow.Show();
+
+            Window window = Application.Current.Windows[0];
+            window.Close();
+        }
 
 
         #endregion

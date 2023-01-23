@@ -6,9 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 
 namespace AutoSerivce.ViewModels
 {
@@ -35,8 +33,6 @@ namespace AutoSerivce.ViewModels
         public IEnumerable<Service> CurrentServices { get => _currentServices; set => Set(ref _currentServices, value); }
 
         private Visibility _idVisibility;
-
-
         public Visibility IdVisibility { get => _idVisibility; set => Set(ref _idVisibility, value); }
 
         #endregion
