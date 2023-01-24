@@ -30,7 +30,7 @@
                 <MenuItem Header="Администратор" Command="{Binding AdminPanelCommand}"/>
                 <MenuItem Header="О программе"/>
                 <Separator/>
-                <MenuItem Header="Выход"/>
+                <MenuItem Header="Выход" Click="MenuItemExit_Click"/>
             </MenuItem>
         </Menu>
 
@@ -85,7 +85,7 @@
             <!--ShowIn-->
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
-                       Text="Показано 100 из 300" 
+                       Text="{Binding CountServices}" 
                        FontWeight="Bold"
                        Grid.ColumnSpan="2"
                        Grid.Column="3"

@@ -17,6 +17,7 @@ namespace AutoSerivce.ViewModels
             using (AutoServiceContext db = new AutoServiceContext())
             {
                 CurrentServices = db.Services.ToList();
+                CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
             }
 
             AddServiceCommand = new LambdaCommand(OnAddServiceCommandExecuted, CanAddServiceCommandExecute);
@@ -38,6 +39,9 @@ namespace AutoSerivce.ViewModels
 
         private Visibility _adminPanelVisibility = Visibility.Collapsed;
         public Visibility AdminPanelVisibility { get => _adminPanelVisibility; set => Set(ref _adminPanelVisibility, value); }
+
+        private string _countServices;
+        public string CountServices { get => _countServices; set => Set(ref _countServices, value); }
 
         #endregion
 
@@ -62,6 +66,7 @@ namespace AutoSerivce.ViewModels
             using (AutoServiceContext db = new AutoServiceContext())
             {
                 CurrentServices = db.Services.ToList();
+                CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
             }
         }
 
@@ -91,6 +96,7 @@ namespace AutoSerivce.ViewModels
             using (AutoServiceContext db = new AutoServiceContext())
             {
                 CurrentServices = db.Services.ToList();
+                CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
             }
         }
 
@@ -115,6 +121,7 @@ namespace AutoSerivce.ViewModels
                     MessageBox.Show($"Услуга {((Service)p).Title} удалена !");
 
                     CurrentServices = db.Services.ToList();
+                    CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
                 }
             }
         }

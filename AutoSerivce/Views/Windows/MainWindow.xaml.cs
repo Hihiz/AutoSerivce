@@ -15,5 +15,7 @@ namespace AutoSerivce.Views.Windows
             //    autoSerivceGrid.ItemsSource = db.Services.ToList();
             //}
         }
+
+        private void MenuItemExit_Click(object sender, RoutedEventArgs e) => Close();
     }
 }
