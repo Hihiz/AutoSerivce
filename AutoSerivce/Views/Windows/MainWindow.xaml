@@ -57,6 +57,39 @@
             <!--Sort-->
             <StackPanel Grid.Column="2" Width="160"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="50">
                 <TextBlock Text="Сортировка" FontSize="14"/>
+                <ComboBox ItemsSource="{Binding SortServicePrice}" 
+                          SelectedIndex="{Binding SortSelectedIndex}" 
+                          SelectedValue="{Binding SortSelectedValue}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SortFilterSearchServiceCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </ComboBox>
+            </StackPanel>
+
+            <!--Filter-->
+            <StackPanel Grid.Column="3" Width="160"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="50">
+                <TextBlock Text="Фильтрация" FontSize="14"/>
+                <ComboBox ItemsSource="{Binding FilterServiceDiscount}" 
+                          SelectedIndex="{Binding FilterSelectedIndex}"
+                          SelectedValue="{Binding FilterSelectedValue}">
+
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SortFilterSearchServiceCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </ComboBox>
+            </StackPanel>
+
+            <!--Search-->
+            <StackPanel Grid.Column="4" Width="160"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="50">
+                <TextBlock Text="Поиск" FontSize="14"/>
                 <TextBox FontSize="14"/>
             </StackPanel>
 
@@ -69,18 +102,6 @@
                     Grid.ColumnSpan="2" 
                     Margin="0 80, 0, 0"
                    Background="#FFFF9C1A"/>
-
-            <!--Filter-->
-            <StackPanel Grid.Column="3" Width="160"  HorizontalAlignment="Left" VerticalAlignment="Center" Height="50">
-                <TextBlock Text="Фильтрация" FontSize="14"/>
-                <TextBox FontSize="14"/>
-            </StackPanel>
-
-            <!--Search-->
-            <StackPanel Grid.Column="4" Width="160"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="50">
-                <TextBlock Text="Поиск" FontSize="14"/>
-                <TextBox FontSize="14"/>
-            </StackPanel>
 
             <!--ShowIn-->
             <TextBlock HorizontalAlignment="Center"

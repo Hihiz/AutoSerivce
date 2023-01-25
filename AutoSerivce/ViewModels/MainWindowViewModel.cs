@@ -20,10 +20,16 @@ namespace AutoSerivce.ViewModels
                 CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
             }
 
+            SortServicePrice = new List<string>() { "По возрастанию цены", "По убыванию цены" };
+
+            FilterServiceDiscount = new List<string>() { "от 0 до 5%", "от 5 до 15%", "от 15 до 30%", "от 30 до 70%", "от 70 до 100%" };
+            FilterServiceDiscount.Insert(0, "Все");
+
             AddServiceCommand = new LambdaCommand(OnAddServiceCommandExecuted, CanAddServiceCommandExecute);
             EditServiceCommand = new LambdaCommand(OnEditServiceCommandExecuted, CanEditServiceCommandExecute);
             DeleteServiceCommand = new LambdaCommand(OnDeleteServiceCommandExecuted, CanDeleteServiceCommandExecute);
             AdminPanelCommand = new LambdaCommand(OnAdminPanelCommandExecuted, CanAdminPanelCommandExecute);
+            SortFilterSearchServiceCommand = new LambdaCommand(OnSortFilterSearchServiceCommandExecuted, CanSortFilterSearchServiceCommandExecute);
         }
 
         #region Свойства
@@ -42,6 +48,24 @@ namespace AutoSerivce.ViewModels
 
         private string _countServices;
         public string CountServices { get => _countServices; set => Set(ref _countServices, value); }
+
+        private List<string> _sortServicePrice;
+        public List<string> SortServicePrice { get => _sortServicePrice; set => Set(ref _sortServicePrice, value); }
+
+        private int _sortSelectedIndex;
+        public int SortSelectedIndex { get => _sortSelectedIndex; set => Set(ref _sortSelectedIndex, value); }
+
+        private string _sortSelectedValue;
+        public string SortSelectedValue { get => _sortSelectedValue; set => Set(ref _sortSelectedValue, value); }
+
+        private List<string> _filterDiscount;
+        public List<string> FilterServiceDiscount { get => _filterDiscount; set => Set(ref _filterDiscount, value); }
+
+        private int _filterSelectedIndex;
+        public int FilterSelectedIndex { get => _filterSelectedIndex; set => Set(ref _filterSelectedIndex, value); }
+
+        private string _filterSelectedValue;
+        public string FilterSelectedValue { get => _filterSelectedValue; set => Set(ref _filterSelectedValue, value); }
 
         #endregion
 
@@ -141,8 +165,63 @@ namespace AutoSerivce.ViewModels
             window.Close();
         }
 
+        public ICommand SortFilterSearchServiceCommand { get; set; }
+        private bool CanSortFilterSearchServiceCommandExecute(object p) => true;
+        private void OnSortFilterSearchServiceCommandExecuted(object p)
+        {
+            using (AutoServiceContext db = new AutoServiceContext())
+            {
+                CurrentServices = db.Services.ToList();
+
+                if (SortSelectedIndex != -1)
+                {
+                    if (SortSelectedValue.Contains("По возрастанию цены"))
+                        CurrentServices = CurrentServices.OrderBy(p => p.Cost);
+
+                    if (SortSelectedValue.Contains("По убыванию цены"))
+                        CurrentServices = CurrentServices.OrderByDescending(p => p.Cost);
+                }
+
+                if (FilterSelectedIndex != -1)
+                {
+                    if (FilterSelectedValue.Contains("от 0 до 5%"))
+                        CurrentServices = CurrentServices.Where(d => d.Discount >= 0 && d.Discount <= 5);
+
+                    if (FilterSelectedValue.Contains("от 5 до 15%"))
+                        CurrentServices = CurrentServices.Where(d => d.Discount >= 5 && d.Discount <= 15);
+
+                    if (FilterSelectedValue.Contains("от 15 до 30%"))
+                        CurrentServices = CurrentServices.Where(d => d.Discount >= 15 && d.Discount <= 30);
+
+                    if (FilterSelectedValue.Contains("от 30 до 70%"))
+                        CurrentServices = CurrentServices.Where(d => d.Discount >= 30 && d.Discount <= 70);
+
+                    if (FilterSelectedValue.Contains("от 70 до 100%"))
+                        CurrentServices = CurrentServices.Where(d => d.Discount >= 70 && d.Discount <= 100);
+                }
+
+                CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
+            }
+        }
 
         #endregion
+
+        //private void SortServicePriceComboBox()
+        //{
+        //    using (AutoServiceContext db = new AutoServiceContext())
+        //    {
+        //        CurrentServices = db.Services.ToList();
+
+        //        if (SortSelectedIndex != -1)
+        //        {
+        //            if (SortSelectedValue.Contains("По возрастанию цены"))
+        //                CurrentServices = CurrentServices.OrderBy(p => p.Cost);
+
+        //            if (SortSelectedValue.Contains("По убванию цены"))
+        //                CurrentServices = CurrentServices.OrderByDescending(p => p.Cost);
+        //        }
+        //    }
+        //}
 
     }
 }
