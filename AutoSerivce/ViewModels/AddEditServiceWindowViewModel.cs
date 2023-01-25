@@ -4,6 +4,7 @@ using AutoSerivce.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -101,6 +102,8 @@ namespace AutoSerivce.ViewModels
                 {
                     MessageBox.Show("Услуга не сохранена, заполните данные и повторите попытку", "Ошибка");
                 }
+
+                CurrentServices = db.Services.ToList();
             }
         }
 

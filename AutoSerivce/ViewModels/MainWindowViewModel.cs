@@ -2,8 +2,10 @@
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
 using AutoSerivce.Views.Windows;
+using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -30,6 +32,7 @@ namespace AutoSerivce.ViewModels
             DeleteServiceCommand = new LambdaCommand(OnDeleteServiceCommandExecuted, CanDeleteServiceCommandExecute);
             AdminPanelCommand = new LambdaCommand(OnAdminPanelCommandExecuted, CanAdminPanelCommandExecute);
             SortFilterSearchServiceCommand = new LambdaCommand(OnSortFilterSearchServiceCommandExecuted, CanSortFilterSearchServiceCommandExecute);
+            ClearCommand = new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
         }
 
         #region Свойства
@@ -67,6 +70,9 @@ namespace AutoSerivce.ViewModels
         private string _filterSelectedValue;
         public string FilterSelectedValue { get => _filterSelectedValue; set => Set(ref _filterSelectedValue, value); }
 
+        private string _searchText;
+        public string SearchText { get => _searchText; set => Set(ref _searchText, value); }
+
         #endregion
 
         #region Комманды
@@ -89,7 +95,7 @@ namespace AutoSerivce.ViewModels
 
             using (AutoServiceContext db = new AutoServiceContext())
             {
-                CurrentServices = db.Services.ToList();
+                //CurrentServices = db.Services.ToList();
                 CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
             }
         }
@@ -119,7 +125,7 @@ namespace AutoSerivce.ViewModels
 
             using (AutoServiceContext db = new AutoServiceContext())
             {
-                CurrentServices = db.Services.ToList();
+                //CurrentServices = db.Services.ToList();
                 CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
             }
         }
@@ -199,29 +205,25 @@ namespace AutoSerivce.ViewModels
                     if (FilterSelectedValue.Contains("от 70 до 100%"))
                         CurrentServices = CurrentServices.Where(d => d.Discount >= 70 && d.Discount <= 100);
                 }
+                else
+                    CurrentServices = db.Services.ToList();
+
+                if (SearchText != null)
+                    CurrentServices = CurrentServices.Where(t => t.Title.Contains(SearchText) /*|| t.Description.Contains(SearchText)*/).ToList();
 
                 CountServices = $"Количество {CurrentServices.Count()} из {db.Services.Count()}";
             }
         }
 
+        public ICommand ClearCommand { get; set; }
+        private bool CanClearCommandExecute(object p) => true;
+        private void OnClearCommandExecuted(object p)
+        {
+            SortSelectedIndex = -1;
+            FilterSelectedIndex = -1;
+            SearchText = "";
+        }
+
         #endregion
-
-        //private void SortServicePriceComboBox()
-        //{
-        //    using (AutoServiceContext db = new AutoServiceContext())
-        //    {
-        //        CurrentServices = db.Services.ToList();
-
-        //        if (SortSelectedIndex != -1)
-        //        {
-        //            if (SortSelectedValue.Contains("По возрастанию цены"))
-        //                CurrentServices = CurrentServices.OrderBy(p => p.Cost);
-
-        //            if (SortSelectedValue.Contains("По убванию цены"))
-        //                CurrentServices = CurrentServices.OrderByDescending(p => p.Cost);
-        //        }
-        //    }
-        //}
-
     }
 }

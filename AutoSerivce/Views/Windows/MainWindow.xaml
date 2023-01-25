@@ -77,7 +77,6 @@
                           SelectedIndex="{Binding FilterSelectedIndex}"
                           SelectedValue="{Binding FilterSelectedValue}">
 
-
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding SortFilterSearchServiceCommand}"/>
@@ -90,7 +89,15 @@
             <!--Search-->
             <StackPanel Grid.Column="4" Width="160"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="50">
                 <TextBlock Text="Поиск" FontSize="14"/>
-                <TextBox FontSize="14"/>
+                <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" FontSize="14">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SortFilterSearchServiceCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </TextBox>
             </StackPanel>
 
             <!--Clear-->
@@ -101,7 +108,8 @@
                     FontSize="13"
                     Grid.ColumnSpan="2" 
                     Margin="0 80, 0, 0"
-                   Background="#FFFF9C1A"/>
+                    Background="#FFFF9C1A"
+                    Command="{Binding ClearCommand}"/>
 
             <!--ShowIn-->
             <TextBlock HorizontalAlignment="Center"
