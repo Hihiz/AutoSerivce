@@ -2,10 +2,8 @@
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
 using AutoSerivce.Views.Windows;
-using Microsoft.IdentityModel.Tokens;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 
@@ -204,9 +202,10 @@ namespace AutoSerivce.ViewModels
 
                     if (FilterSelectedValue.Contains("от 70 до 100%"))
                         CurrentServices = CurrentServices.Where(d => d.Discount >= 70 && d.Discount <= 100);
+
                 }
-                else
-                    CurrentServices = db.Services.ToList();
+                //else
+                //    CurrentServices = db.Services.ToList();
 
                 if (SearchText != null)
                     CurrentServices = CurrentServices.Where(t => t.Title.Contains(SearchText) /*|| t.Description.Contains(SearchText)*/).ToList();
