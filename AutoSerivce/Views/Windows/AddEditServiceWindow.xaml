@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="clr-namespace:AutoSerivce.Views.Windows"
         mc:Ignorable="d"
-        Title="AddEditServiceWindow" 
+        Title="{Binding Title}" 
         Height="450" 
         Width="800" FontSize="14"
         WindowStartupLocation="CenterScreen">

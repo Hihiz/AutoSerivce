@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoSerivce.Views.Windows"
         mc:Ignorable="d"
-        Title="Доступ к панели администратора" Height="300" Width="400">
+        Title="{Binding Title}" Height="300" Width="400">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="117*"/>

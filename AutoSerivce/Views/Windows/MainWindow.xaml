@@ -10,11 +10,12 @@
         Height="820"
         Width="1000"
         WindowStartupLocation="CenterScreen"
-        Icon="/Resources/service_logo.png">
+        Icon="/Resources/service_logo.png"
+        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=true}">
 
-    <Window.DataContext>
+    <!--<Window.DataContext>
         <vm:MainWindowViewModel/>
-    </Window.DataContext>
+    </Window.DataContext>-->
 
     <Grid>
         <Grid.RowDefinitions>
