@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace AutoSerivce.ViewModels
 {
-    public class AddEditServiceWindowViewModel : ViewModel
+    public class AddEditServiceWindowViewModel : DialogViewModel
     {
         private string _oldImage;
         private string _newImage;
@@ -27,13 +27,16 @@ namespace AutoSerivce.ViewModels
 
         #region Свойства
 
+        private string _title;
+        public string Title { get => _title; set => Set(ref _title, value); }
+
         private Service _currentService;
         public Service CurrentService { get => _currentService; set => Set(ref _currentService, value); }
 
         private IEnumerable<Service> _currentServices;
         public IEnumerable<Service> CurrentServices { get => _currentServices; set => Set(ref _currentServices, value); }
 
-        private Visibility _idVisibility;
+        private Visibility _idVisibility = Visibility.Collapsed;
         public Visibility IdVisibility { get => _idVisibility; set => Set(ref _idVisibility, value); }
 
         #endregion

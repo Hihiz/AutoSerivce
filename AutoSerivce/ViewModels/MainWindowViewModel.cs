@@ -1,7 +1,9 @@
 ﻿using AutoSerivce.Commands;
+using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
 using AutoSerivce.Views.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -9,8 +11,9 @@ using System.Windows.Input;
 
 namespace AutoSerivce.ViewModels
 {
-    public class MainWindowViewModel : ViewModel
+    public class MainWindowViewModel : DialogViewModel
     {
+        private readonly IUserDialog _userDialog = null;
 
         public MainWindowViewModel()
         {
@@ -33,6 +36,11 @@ namespace AutoSerivce.ViewModels
             ClearCommand = new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
         }
 
+        public MainWindowViewModel(IUserDialog userDialog) : this()
+        {
+            _userDialog = userDialog;
+        }
+
         #region Свойства
 
         private string _title = "Услуги автосервиса";
@@ -44,7 +52,7 @@ namespace AutoSerivce.ViewModels
         private IEnumerable<Service> _currentServices;
         public IEnumerable<Service> CurrentServices { get => _currentServices; set => Set(ref _currentServices, value); }
 
-        private Visibility _adminPanelVisibility = Visibility.Collapsed;
+        private Visibility _adminPanelVisibility = Visibility.Visible;
         public Visibility AdminPanelVisibility { get => _adminPanelVisibility; set => Set(ref _adminPanelVisibility, value); }
 
         private string _countServices;
@@ -79,17 +87,20 @@ namespace AutoSerivce.ViewModels
         private bool CanAddServiceCommandExecute(object p) => true;
         public void OnAddServiceCommandExecuted(object p)
         {
-            AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow();
-            AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel();
+            //AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow();
+            //AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel();
 
-            CurrentService = new Service();
+            //CurrentService = new Service();
 
-            addEditServiceWindow.DataContext = addEditServiceWindowViewModel;
+            //addEditServiceWindow.DataContext = addEditServiceWindowViewModel;
 
-            addEditServiceWindowViewModel.IdVisibility = Visibility.Collapsed;
+            //addEditServiceWindowViewModel.IdVisibility = Visibility.Collapsed;
 
-            addEditServiceWindow.Title = "Добавление новой услуги";
-            addEditServiceWindow.ShowDialog();
+
+            //addEditServiceWindow.ShowDialog();
+
+            //Title = "Добавление новой услуги";
+            _userDialog.OpenAddEditServiceWindow();
 
             using (AutoServiceContext db = new AutoServiceContext())
             {
@@ -108,18 +119,21 @@ namespace AutoSerivce.ViewModels
         }
         public void OnEditServiceCommandExecuted(object p)
         {
-            AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow();
-            AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel();
+            //AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow();
+            //AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel();
 
-            addEditServiceWindow.DataContext = addEditServiceWindowViewModel;
+            //addEditServiceWindow.DataContext = addEditServiceWindowViewModel;
 
             CurrentService = (Service)p;
 
-            addEditServiceWindowViewModel.CurrentService = CurrentService;
-            addEditServiceWindowViewModel.IdVisibility = Visibility.Visible;
+            //addEditServiceWindowViewModel.CurrentService = CurrentService;
+            //addEditServiceWindowViewModel.IdVisibility = Visibility.Visible;
 
-            addEditServiceWindow.Title = $"Редактирование услуги: {((Service)p).Title} | Id: {((Service)p).Id}";
-            addEditServiceWindow.ShowDialog();
+            //Title = $"Редактирование услуги: {((Service)p).Title} | Id: {((Service)p).Id}";
+
+            //addEditServiceWindow.ShowDialog();
+
+            _userDialog.OpenAddEditServiceWindow(CurrentService);
 
             using (AutoServiceContext db = new AutoServiceContext())
             {
