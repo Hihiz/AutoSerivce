@@ -2,8 +2,6 @@
 using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
-using AutoSerivce.Views.Windows;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -34,6 +32,7 @@ namespace AutoSerivce.ViewModels
             AdminPanelCommand = new LambdaCommand(OnAdminPanelCommandExecuted, CanAdminPanelCommandExecute);
             SortFilterSearchServiceCommand = new LambdaCommand(OnSortFilterSearchServiceCommandExecuted, CanSortFilterSearchServiceCommandExecute);
             ClearCommand = new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
+            //CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
         }
 
         public MainWindowViewModel(IUserDialog userDialog) : this()
@@ -172,15 +171,19 @@ namespace AutoSerivce.ViewModels
         private bool CanAdminPanelCommandExecute(object p) => true;
         private void OnAdminPanelCommandExecuted(object p)
         {
-            AdminWindow adminWindow = new AdminWindow();
-            AdminWindowViewModel adminWindowViewModel = new AdminWindowViewModel();
+            //AdminWindow adminWindow = new AdminWindow();
+            //AdminWindowViewModel adminWindowViewModel = new AdminWindowViewModel();
 
-            adminWindow.DataContext = adminWindowViewModel;
+            //adminWindow.DataContext = adminWindowViewModel;
 
-            adminWindow.Show();
+            //adminWindow.Show();
 
-            Window window = Application.Current.Windows[0];
-            window.Close();
+
+            _userDialog.AdminPanelWindow();
+
+
+            //Window window = Application.Current.Windows[0];
+            //window.Close();
         }
 
         public ICommand SortFilterSearchServiceCommand { get; set; }
@@ -236,6 +239,13 @@ namespace AutoSerivce.ViewModels
             FilterSelectedIndex = -1;
             SearchText = "";
         }
+
+        //public ICommand CloseApplicationCommand { get; set; }
+        //private bool CanCloseApplicationCommandExecute(object p) => true;
+        //private void OnCloseApplicationCommandExecuted(object p)
+        //{
+        //    (RootObject as Window)?.Close();
+        //}
 
         #endregion
     }

@@ -25,12 +25,16 @@ namespace AutoSerivce.ViewModels
 
             if (PassAdmin == "0000")
             {
-                MainWindow mainWindow = new MainWindow();
-                MainWindowViewModel mainWindowViewModel = new MainWindowViewModel();
+                MainWindowViewModel mainWindowViewModel = new MainWindowViewModel
+                {
+                    AdminPanelVisibility = Visibility.Visible
+                };
 
-                mainWindow.DataContext = mainWindowViewModel;
+                MainWindow mainWindow = new MainWindow()
+                {
+                    DataContext = mainWindowViewModel
+                };
 
-                mainWindowViewModel.AdminPanelVisibility = Visibility.Visible;
 
                 mainWindow.Show();
 
