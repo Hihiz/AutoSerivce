@@ -4,18 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoSerivce"
+        xmlns:cmd="clr-namespace:AutoSerivce.Commands.Base"
         xmlns:vm="clr-namespace:AutoSerivce.ViewModels" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d" FontSize="14"
         Title="{Binding Title}" 
         Height="820"
         Width="1000"
         WindowStartupLocation="CenterScreen"
-        Icon="/Resources/service_logo.png"
-        d:DataContext="{d:DesignInstance vm:MainWindowViewModel, IsDesignTimeCreatable=true}">
+        Icon="/Resources/service_logo.png">
 
-    <!--<Window.DataContext>
+    <Window.DataContext>
         <vm:MainWindowViewModel/>
-    </Window.DataContext>-->
+    </Window.DataContext>
+
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+    </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -31,7 +35,7 @@
                 <MenuItem Header="Администратор" Command="{Binding AdminPanelCommand}"/>
                 <MenuItem Header="О программе"/>
                 <Separator/>
-                <MenuItem Header="Выход" Click="MenuItemExit_Click"/>
+                <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
             </MenuItem>
         </Menu>
 
@@ -67,7 +71,7 @@
                             <i:InvokeCommandAction Command="{Binding SortFilterSearchServiceCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    
+
                 </ComboBox>
             </StackPanel>
 

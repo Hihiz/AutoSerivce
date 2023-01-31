@@ -1,21 +1,7 @@
-﻿using AutoSerivce.Models;
-using System.Linq;
-using System.Windows;
-
-namespace AutoSerivce.Views.Windows
+﻿namespace AutoSerivce.Views.Windows
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-
-            //using (AutoServiceContext db = new AutoServiceContext())
-            //{
-            //    autoSerivceGrid.ItemsSource = db.Services.ToList();
-            //}
-        }
-
-        private void MenuItemExit_Click(object sender, RoutedEventArgs e) => Close();
+        public MainWindow() => InitializeComponent();
     }
 }
