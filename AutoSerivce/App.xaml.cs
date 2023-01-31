@@ -4,7 +4,9 @@ using AutoSerivce.ViewModels;
 using AutoSerivce.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Runtime.InteropServices.JavaScript;
 using System.Windows;
+using System.Windows.Automation.Peers;
 
 namespace AutoSerivce
 {
@@ -20,6 +22,7 @@ namespace AutoSerivce
 
             services.AddSingleton<MainWindowViewModel>();
             services.AddScoped<AddEditServiceWindowViewModel>();
+            services.AddScoped<AdminWindowViewModel>();
 
             services.AddSingleton<IUserDialog, UserDialogService>();
 
@@ -48,6 +51,16 @@ namespace AutoSerivce
                    return window;
                });
 
+            services.AddTransient(
+                s =>
+                {
+                    var scope = s.CreateScope();
+                    var model = scope.ServiceProvider.GetRequiredService<AdminWindowViewModel>();
+                    var window = new AdminWindow { DataContext = model };
+
+                    return window;
+                });
+
             return services;
         }
 
@@ -56,6 +69,6 @@ namespace AutoSerivce
             base.OnStartup(e);
 
             Services.GetRequiredService<IUserDialog>().OpenMainWindow();
-        }
+        }      
     }
 }
