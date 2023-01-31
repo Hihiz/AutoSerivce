@@ -13,6 +13,13 @@ namespace AutoSerivce.Interfaces.Implementations
 
         public UserDialogService(IServiceProvider services) => _services = services;
 
+        public void OpenMainWindow()
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow = _services.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+        }
+
         public void OpenAddEditServiceWindow()
         {
             AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel
@@ -20,11 +27,12 @@ namespace AutoSerivce.Interfaces.Implementations
                 Title = "Добавление новой услуги"
             };
 
-            AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow();
+            AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow()
+            {
+                DataContext = addEditServiceWindowViewModel
+            };
 
-            addEditServiceWindow = _services.GetRequiredService<AddEditServiceWindow>();
-
-            //Title = "Добавление новой услуги";
+            //addEditServiceWindow = _services.GetRequiredService<AddEditServiceWindow>();
 
             addEditServiceWindow.ShowDialog();
         }
@@ -51,11 +59,21 @@ namespace AutoSerivce.Interfaces.Implementations
             addEditServiceWindow.ShowDialog();
         }
 
-        public void OpenMainWindow()
+        public void AdminPanelWindow()
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow = _services.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            AdminWindow adminWindow = new AdminWindow();
+            adminWindow = _services.GetRequiredService<AdminWindow>();
+
+            //Window window = Application.Current.Windows[0];
+            //window.Close();
+
+            adminWindow.Show();
+
+            Window window = Application.Current.Windows[0];
+            window.Close();
+
+            //Window window = Application.Current.Windows[0];
+            //window.Close();
         }
     }
 }
