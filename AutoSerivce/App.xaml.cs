@@ -4,9 +4,8 @@ using AutoSerivce.ViewModels;
 using AutoSerivce.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Runtime.InteropServices.JavaScript;
+using System.Linq;
 using System.Windows;
-using System.Windows.Automation.Peers;
 
 namespace AutoSerivce
 {
@@ -32,9 +31,6 @@ namespace AutoSerivce
                   var model = s.GetRequiredService<MainWindowViewModel>();
                   var window = new MainWindow { DataContext = model };
 
-                  model.DialogComplete += (_, _) => window.Close(); //
-
-
                   return window;
               });
 
@@ -44,9 +40,6 @@ namespace AutoSerivce
                    var scope = s.CreateScope();
                    var model = scope.ServiceProvider.GetRequiredService<AddEditServiceWindowViewModel>();
                    var window = new AddEditServiceWindow { DataContext = model };
-
-                   model.DialogComplete += (_, _) => window.Close();// 
-                   window.Closed += (_, _) => scope.Dispose(); // 
 
                    return window;
                });
@@ -69,6 +62,6 @@ namespace AutoSerivce
             base.OnStartup(e);
 
             Services.GetRequiredService<IUserDialog>().OpenMainWindow();
-        }      
+        }
     }
 }

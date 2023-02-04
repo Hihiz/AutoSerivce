@@ -32,17 +32,15 @@ namespace AutoSerivce.Interfaces.Implementations
                 DataContext = addEditServiceWindowViewModel
             };
 
-            //addEditServiceWindow = _services.GetRequiredService<AddEditServiceWindow>();
-
             addEditServiceWindow.ShowDialog();
         }
 
-        public void OpenAddEditServiceWindow(Service currentService)
+        public void OpenAddEditServiceWindow(object item)
         {
             AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel
             {
-                Title = $"Редактирование услуги: {((Service)currentService).Title} | Id: {((Service)currentService).Id}",
-                CurrentService = currentService,
+                Title = $"Редактирование услуги: {((Service)item).Title} | Id: {((Service)item).Id}",
+                CurrentService = (Service)item,
                 IdVisibility = Visibility.Visible
             };
 
@@ -51,10 +49,7 @@ namespace AutoSerivce.Interfaces.Implementations
                 DataContext = addEditServiceWindowViewModel
             };
 
-            //_services.GetRequiredService<AddEditServiceWindowViewModel>().CurrentService = currentService;
-            //_services.GetRequiredService<AddEditServiceWindowViewModel>().IdVisibility = Visibility.Visible;
-
-            addEditServiceWindowViewModel.CurrentService = currentService;
+            addEditServiceWindowViewModel.CurrentService = (Service)item;
 
             addEditServiceWindow.ShowDialog();
         }
@@ -64,16 +59,11 @@ namespace AutoSerivce.Interfaces.Implementations
             AdminWindow adminWindow = new AdminWindow();
             adminWindow = _services.GetRequiredService<AdminWindow>();
 
-            //Window window = Application.Current.Windows[0];
-            //window.Close();
-
             adminWindow.Show();
 
             Window window = Application.Current.Windows[0];
             window.Close();
 
-            //Window window = Application.Current.Windows[0];
-            //window.Close();
         }
     }
 }

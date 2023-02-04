@@ -6,7 +6,7 @@ namespace AutoSerivce.Interfaces
     {
         void OpenMainWindow();
         void OpenAddEditServiceWindow();
-        void OpenAddEditServiceWindow(Service currentService);
+        void OpenAddEditServiceWindow(object item);
         void AdminPanelWindow();
     }
 }

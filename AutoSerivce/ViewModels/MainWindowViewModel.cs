@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace AutoSerivce.ViewModels
 {
-    public class MainWindowViewModel : DialogViewModel
+    public class MainWindowViewModel : ViewModel
     {
         private readonly IUserDialog _userDialog = null;
 
@@ -32,7 +32,6 @@ namespace AutoSerivce.ViewModels
             AdminPanelCommand = new LambdaCommand(OnAdminPanelCommandExecuted, CanAdminPanelCommandExecute);
             SortFilterSearchServiceCommand = new LambdaCommand(OnSortFilterSearchServiceCommandExecuted, CanSortFilterSearchServiceCommandExecute);
             ClearCommand = new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
-            //CloseApplicationCommand = new LambdaCommand(OnCloseApplicationCommandExecuted, CanCloseApplicationCommandExecute);
         }
 
         public MainWindowViewModel(IUserDialog userDialog) : this()
@@ -86,19 +85,6 @@ namespace AutoSerivce.ViewModels
         private bool CanAddServiceCommandExecute(object p) => true;
         public void OnAddServiceCommandExecuted(object p)
         {
-            //AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow();
-            //AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel();
-
-            //CurrentService = new Service();
-
-            //addEditServiceWindow.DataContext = addEditServiceWindowViewModel;
-
-            //addEditServiceWindowViewModel.IdVisibility = Visibility.Collapsed;
-
-
-            //addEditServiceWindow.ShowDialog();
-
-            //Title = "Добавление новой услуги";
             _userDialog.OpenAddEditServiceWindow();
 
             using (AutoServiceContext db = new AutoServiceContext())
@@ -109,28 +95,10 @@ namespace AutoSerivce.ViewModels
         }
 
         public ICommand EditServiceCommand { get; set; }
-        private bool CanEditServiceCommandExecute(object p)
-        {
-            if ((Service)p != null)
-                return true;
-
-            return false;
-        }
+        private bool CanEditServiceCommandExecute(object p) => p is Service;
         public void OnEditServiceCommandExecuted(object p)
         {
-            //AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow();
-            //AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel();
-
-            //addEditServiceWindow.DataContext = addEditServiceWindowViewModel;
-
             CurrentService = (Service)p;
-
-            //addEditServiceWindowViewModel.CurrentService = CurrentService;
-            //addEditServiceWindowViewModel.IdVisibility = Visibility.Visible;
-
-            //Title = $"Редактирование услуги: {((Service)p).Title} | Id: {((Service)p).Id}";
-
-            //addEditServiceWindow.ShowDialog();
 
             _userDialog.OpenAddEditServiceWindow(CurrentService);
 
@@ -142,13 +110,7 @@ namespace AutoSerivce.ViewModels
         }
 
         public ICommand DeleteServiceCommand { get; set; }
-        private bool CanDeleteServiceCommandExecute(object p)
-        {
-            if ((Service)p != null)
-                return true;
-
-            return false;
-        }
+        private bool CanDeleteServiceCommandExecute(object p) => p is Service;
         private void OnDeleteServiceCommandExecuted(object p)
         {
             if (MessageBox.Show($"Вы точно хотите удалить {((Service)p).Title}", "Внимание",
@@ -171,19 +133,10 @@ namespace AutoSerivce.ViewModels
         private bool CanAdminPanelCommandExecute(object p) => true;
         private void OnAdminPanelCommandExecuted(object p)
         {
-            //AdminWindow adminWindow = new AdminWindow();
-            //AdminWindowViewModel adminWindowViewModel = new AdminWindowViewModel();
-
-            //adminWindow.DataContext = adminWindowViewModel;
-
-            //adminWindow.Show();
-
-
             _userDialog.AdminPanelWindow();
 
-
-            //Window window = Application.Current.Windows[0];
-            //window.Close();
+            Window window = Application.Current.Windows[0];
+            window.Close();
         }
 
         public ICommand SortFilterSearchServiceCommand { get; set; }
@@ -202,7 +155,6 @@ namespace AutoSerivce.ViewModels
                     if (SortSelectedValue.Contains("По убыванию цены"))
                         CurrentServices = CurrentServices.OrderByDescending(p => p.Cost);
                 }
-
                 if (FilterSelectedIndex != -1)
                 {
                     if (FilterSelectedValue.Contains("от 0 до 5%"))
@@ -221,9 +173,6 @@ namespace AutoSerivce.ViewModels
                         CurrentServices = CurrentServices.Where(d => d.Discount >= 70 && d.Discount <= 100);
 
                 }
-                //else
-                //    CurrentServices = db.Services.ToList();
-
                 if (SearchText != null)
                     CurrentServices = CurrentServices.Where(t => t.Title.Contains(SearchText) /*|| t.Description.Contains(SearchText)*/).ToList();
 
@@ -239,13 +188,6 @@ namespace AutoSerivce.ViewModels
             FilterSelectedIndex = -1;
             SearchText = "";
         }
-
-        //public ICommand CloseApplicationCommand { get; set; }
-        //private bool CanCloseApplicationCommandExecute(object p) => true;
-        //private void OnCloseApplicationCommandExecuted(object p)
-        //{
-        //    (RootObject as Window)?.Close();
-        //}
 
         #endregion
     }

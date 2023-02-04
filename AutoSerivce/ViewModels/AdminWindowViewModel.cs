@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace AutoSerivce.ViewModels
 {
-    public class AdminWindowViewModel : DialogViewModel
+    public class AdminWindowViewModel : ViewModel
     {
         public AdminWindowViewModel()
         {
