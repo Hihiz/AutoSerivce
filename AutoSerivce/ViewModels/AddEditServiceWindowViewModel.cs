@@ -5,13 +5,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace AutoSerivce.ViewModels
 {
-    public class AddEditServiceWindowViewModel : DialogViewModel
+    public class AddEditServiceWindowViewModel : ViewModel
     {
         private string _oldImage;
         private string _newImage;
@@ -44,7 +45,19 @@ namespace AutoSerivce.ViewModels
         #region Команды
 
         public ICommand SaveServiceCommand { get; set; }
-        private bool CanSaveServiceCommandExecute(object p) => true;
+        private bool CanSaveServiceCommandExecute(object p)
+        {
+            if (string.IsNullOrWhiteSpace(CurrentService.Title))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(CurrentService.Cost.ToString())) //
+                return false;
+
+            if (string.IsNullOrWhiteSpace(CurrentService.DurationWork))
+                return false;
+
+            return true;
+        }
         private void OnSaveServiceCommandExecuted(object p)
         {
             using (AutoServiceContext db = new AutoServiceContext())
