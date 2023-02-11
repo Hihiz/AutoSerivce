@@ -19,7 +19,7 @@ namespace AutoSerivce
             var services = new ServiceCollection();
 
             services.AddSingleton<MainWindowViewModel>();
-            services.AddTransient<AddEditServiceWindowViewModel>();
+            services.AddSingleton<AddEditServiceWindowViewModel>();
             services.AddTransient<AdminWindowViewModel>();
 
             services.AddSingleton<IUserDialog, UserDialogService>();
@@ -39,8 +39,8 @@ namespace AutoSerivce
                s =>
                {
                    //var scope = s.CreateScope();
-                   var model = /*scope.ServiceProvider*/s.GetRequiredService<AddEditServiceWindowViewModel>();
-                   var window = new AddEditServiceWindow { DataContext = model, Title = "Добавление новой услуги" };
+                   var model = s/*cope.ServiceProvider*/.GetRequiredService<AddEditServiceWindowViewModel>();
+                   var window = new AddEditServiceWindow { DataContext = model };
 
                    model.DialogComplete += (_, _) => window.Close();
                    //window.Closed += (_, _) => scope.Dispose();
