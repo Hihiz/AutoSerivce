@@ -5,14 +5,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
 namespace AutoSerivce.ViewModels
 {
-    public class AddEditServiceWindowViewModel : ViewModel
+    public class AddEditServiceWindowViewModel : DialogViewModel
     {
         private string _oldImage;
         private string _newImage;
@@ -90,7 +89,7 @@ namespace AutoSerivce.ViewModels
                         CurrentService.ImagePath = image.UriSource.ToString();
 
                     }
-                    else // если выбрано фото
+                    else
                     {
                         string newRelativePath = $"{System.DateTime.Now.ToString("HHmmss")}_{_newImage}";
                         service.MainImagePath = newRelativePath;
@@ -145,7 +144,6 @@ namespace AutoSerivce.ViewModels
                     dlg.Title = "Open Image";
                     dlg.InitialDirectory = "./";
 
-                    // Предпросмотр изображения
                     BitmapImage image = new BitmapImage();
                     image.BeginInit();
                     image.CacheOption = BitmapCacheOption.OnLoad;

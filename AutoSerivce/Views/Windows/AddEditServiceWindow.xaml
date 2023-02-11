@@ -27,17 +27,17 @@
 
                 <StackPanel>
                     <TextBlock Text="Название услуги"/>
-                    <TextBox Text="{Binding CurrentService.Title}"/>
+                    <TextBox Text="{Binding CurrentService.Title, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Цена"/>
-                    <TextBox Text="{Binding CurrentService.Cost}"/>
+                    <TextBox Text="{Binding CurrentService.Cost, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel>
                     <TextBlock Text="Длительность работы"/>
-                    <TextBox Text="{Binding CurrentService.DurationWork}"/>
+                    <TextBox Text="{Binding CurrentService.DurationWork, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
                 <StackPanel>
