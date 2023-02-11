@@ -21,19 +21,15 @@ namespace AutoSerivce.Interfaces.Implementations
             mainWindow.Show();
         }
 
-        public void OpenMainWindow(object visibility)
+        public void OpenMainWindow(Visibility visibility)
         {
             MainWindow mainWindow;
             mainWindow = _services.GetRequiredService<MainWindow>();
 
-            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel
-            {
-
-            }
+            /*visibility = */_services.GetService<MainWindowViewModel>().AdminPanelVisibility = visibility;
 
             mainWindow.Closed += (_, _) => mainWindow = null;
             mainWindow.Show();
-
         }
 
         public void OpenAddEditServiceWindow()

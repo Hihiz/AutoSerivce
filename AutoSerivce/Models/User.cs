@@ -1,6 +1,4 @@
-﻿using Microsoft.Identity.Client;
-
-namespace AutoSerivce.Models
+﻿namespace AutoSerivce.Models
 {
     public class User
     {

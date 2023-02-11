@@ -26,7 +26,6 @@ public partial class Service : ViewModel
 
     public virtual ICollection<ServicePhoto> ServicePhotos { get; } = new List<ServicePhoto>();
 
-
     //Изображение
     //public virtual string? ImagePath { get { return System.IO.Path.Combine(Environment.CurrentDirectory, $"Услуги автосервиса/{MainImagePath}"); }  }
 
@@ -48,10 +47,6 @@ public partial class Service : ViewModel
             }
         }
 
-        set
-        {
-            Set(ref _imagePath, value);
-        }
-
+        set => Set(ref _imagePath, value);
     }
 }

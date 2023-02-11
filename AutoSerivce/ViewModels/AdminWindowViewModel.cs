@@ -22,11 +22,16 @@ namespace AutoSerivce.ViewModels
             _userDialog = userDialog;
         }
 
+        #region Свойства
+
         private string _title = "Доступ к админ панели";
         public string Title { get => _title; set => Set(ref _title, value); }
 
         private string _passAdmin;
         public string PassAdmin { get => _passAdmin; set => Set(ref _passAdmin, value); }
+        #endregion
+
+        #region Команды
 
         public ICommand AdminPasswordCommand { get; set; }
         private bool CanAdminPasswordCommandExecute(object p)
@@ -38,28 +43,16 @@ namespace AutoSerivce.ViewModels
         }
         private void OnAdminPasswordCommandExecuted(object p)
         {
-            AdminWindow adminWindow = new AdminWindow();
-
             if (PassAdmin == "0000")
             {
-                //MainWindowViewModel mainWindowViewModel = new MainWindowViewModel
-                //{
-                //    AdminPanelVisibility = Visibility.Visible
-                //};
+                _userDialog.OpenMainWindow(Visibility.Visible);
 
-                //MainWindow mainWindow = new MainWindow()
-                //{
-                //    DataContext = mainWindowViewModel
-                //};
-
-                //mainWindow.Show();
-
-                _userDialog.OpenMainWindow();
-
-                OnDialogComlete(EventArgs.Empty);
+                OnDialogComplete(EventArgs.Empty);
             }
             else
                 MessageBox.Show("Пароль введен не верно");
         }
+
+        #endregion
     }
 }

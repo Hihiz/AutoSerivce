@@ -142,7 +142,7 @@ namespace AutoSerivce.ViewModels
         {
             _userDialog.AdminPanelWindow();
 
-            OnDialogComlete(EventArgs.Empty);
+            OnDialogComplete(EventArgs.Empty);
         }
 
         public ICommand SortFilterSearchServiceCommand { get; set; }

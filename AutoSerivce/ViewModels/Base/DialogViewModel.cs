@@ -8,6 +8,6 @@ namespace AutoSerivce.ViewModels.Base
         public event EventHandler DialogComplete;
 
         //Метод которое событие генерирует
-        protected virtual void OnDialogComlete(EventArgs e) => DialogComplete.Invoke(this, e);
+        protected virtual void OnDialogComplete(EventArgs e) => DialogComplete.Invoke(this, e);
     }
 }
