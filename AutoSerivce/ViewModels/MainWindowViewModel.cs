@@ -2,6 +2,7 @@
 using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace AutoSerivce.ViewModels
 {
-    public class MainWindowViewModel : ViewModel
+    public class MainWindowViewModel : DialogViewModel
     {
         private readonly IUserDialog _userDialog = null;
 
@@ -50,7 +51,7 @@ namespace AutoSerivce.ViewModels
         private IEnumerable<Service> _currentServices;
         public IEnumerable<Service> CurrentServices { get => _currentServices; set => Set(ref _currentServices, value); }
 
-        private Visibility _adminPanelVisibility = Visibility.Visible;
+        private Visibility _adminPanelVisibility = Visibility.Collapsed; //
         public Visibility AdminPanelVisibility { get => _adminPanelVisibility; set => Set(ref _adminPanelVisibility, value); }
 
         private string _countServices;
@@ -95,7 +96,13 @@ namespace AutoSerivce.ViewModels
         }
 
         public ICommand EditServiceCommand { get; set; }
-        private bool CanEditServiceCommandExecute(object p) => p is Service;
+        private bool CanEditServiceCommandExecute(object p)
+        {
+            if (AdminPanelVisibility == Visibility.Collapsed)
+                return false;
+
+            return p is Service;
+        }
         public void OnEditServiceCommandExecuted(object p)
         {
             CurrentService = (Service)p;
@@ -135,8 +142,7 @@ namespace AutoSerivce.ViewModels
         {
             _userDialog.AdminPanelWindow();
 
-            Window window = Application.Current.Windows[0];
-            window.Close();
+            OnDialogComlete(EventArgs.Empty);
         }
 
         public ICommand SortFilterSearchServiceCommand { get; set; }
