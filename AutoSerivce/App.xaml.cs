@@ -4,7 +4,6 @@ using AutoSerivce.ViewModels;
 using AutoSerivce.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
 using System.Windows;
 
 namespace AutoSerivce
@@ -20,16 +19,18 @@ namespace AutoSerivce
             var services = new ServiceCollection();
 
             services.AddSingleton<MainWindowViewModel>();
-            services.AddScoped<AddEditServiceWindowViewModel>();
-            services.AddScoped<AdminWindowViewModel>();
+            services.AddTransient<AddEditServiceWindowViewModel>();
+            services.AddTransient<AdminWindowViewModel>();
 
             services.AddSingleton<IUserDialog, UserDialogService>();
 
-            services.AddSingleton(
+            services.AddTransient(
               s =>
               {
                   var model = s.GetRequiredService<MainWindowViewModel>();
-                  var window = new MainWindow { DataContext = model };
+                  var window = new MainWindow { DataContext = model, };
+
+                  model.DialogComplete += (_, _) => window.Close();
 
                   return window;
               });
@@ -37,9 +38,13 @@ namespace AutoSerivce
             services.AddTransient(
                s =>
                {
-                   var scope = s.CreateScope();
-                   var model = scope.ServiceProvider.GetRequiredService<AddEditServiceWindowViewModel>();
-                   var window = new AddEditServiceWindow { DataContext = model };
+                   //var scope = s.CreateScope();
+                   var model = /*scope.ServiceProvider*/s.GetRequiredService<AddEditServiceWindowViewModel>();
+                   var window = new AddEditServiceWindow { DataContext = model, Title = "Добавление новой услуги" };
+
+                   model.DialogComplete += (_, _) => window.Close();
+                   //window.Closed += (_, _) => scope.Dispose();
+
 
                    return window;
                });
@@ -47,9 +52,12 @@ namespace AutoSerivce
             services.AddTransient(
                 s =>
                 {
-                    var scope = s.CreateScope();
-                    var model = scope.ServiceProvider.GetRequiredService<AdminWindowViewModel>();
+                    //var scope = s.CreateScope();
+                    var model = s/*cope.ServiceProvider*/.GetRequiredService<AdminWindowViewModel>();
                     var window = new AdminWindow { DataContext = model };
+
+                    model.DialogComplete += (_, _) => window.Close();
+                    //window.Closed += (_, _) => scope.Dispose();
 
                     return window;
                 });

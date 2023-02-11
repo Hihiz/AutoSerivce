@@ -15,28 +15,41 @@ namespace AutoSerivce.Interfaces.Implementations
 
         public void OpenMainWindow()
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow;
             mainWindow = _services.GetRequiredService<MainWindow>();
+            mainWindow.Closed += (_, _) => mainWindow = null;
             mainWindow.Show();
+        }
+
+        public void OpenMainWindow(object visibility)
+        {
+            MainWindow mainWindow;
+            mainWindow = _services.GetRequiredService<MainWindow>();
+
+            MainWindowViewModel mainWindowViewModel = new MainWindowViewModel
+            {
+
+            }
+
+            mainWindow.Closed += (_, _) => mainWindow = null;
+            mainWindow.Show();
+
         }
 
         public void OpenAddEditServiceWindow()
         {
-            AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel
-            {
-                Title = "Добавление новой услуги"
-            };
+            AddEditServiceWindow addEditServiceWindow;
 
-            AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow()
-            {
-                DataContext = addEditServiceWindowViewModel
-            };
+            addEditServiceWindow = _services.GetRequiredService<AddEditServiceWindow>();
+            addEditServiceWindow.Closed += (_, _) => addEditServiceWindow = null;
 
             addEditServiceWindow.ShowDialog();
         }
 
         public void OpenAddEditServiceWindow(object item)
         {
+            //addEditServiceWindow = _services.GetRequiredService<AddEditServiceWindow>(); 
+
             AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel
             {
                 Title = $"Редактирование услуги: {((Service)item).Title} | Id: {((Service)item).Id}",
@@ -49,21 +62,16 @@ namespace AutoSerivce.Interfaces.Implementations
                 DataContext = addEditServiceWindowViewModel
             };
 
-            addEditServiceWindowViewModel.CurrentService = (Service)item;
-
+            addEditServiceWindow.Closed += (_, _) => addEditServiceWindow = null;
             addEditServiceWindow.ShowDialog();
         }
 
         public void AdminPanelWindow()
         {
-            AdminWindow adminWindow = new AdminWindow();
+            AdminWindow adminWindow;
             adminWindow = _services.GetRequiredService<AdminWindow>();
-
+            adminWindow.Closed += (_, _) => adminWindow = null;
             adminWindow.Show();
-
-            Window window = Application.Current.Windows[0];
-            window.Close();
-
         }
     }
 }
