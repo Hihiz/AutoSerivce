@@ -26,7 +26,8 @@ namespace AutoSerivce.Interfaces.Implementations
             MainWindow mainWindow;
             mainWindow = _services.GetRequiredService<MainWindow>();
 
-            /*visibility = */_services.GetService<MainWindowViewModel>().AdminPanelVisibility = visibility;
+            /*visibility = */
+            _services.GetRequiredService<MainWindowViewModel>().AdminPanelVisibility = visibility;
 
             mainWindow.Closed += (_, _) => mainWindow = null;
             mainWindow.Show();
@@ -35,10 +36,13 @@ namespace AutoSerivce.Interfaces.Implementations
         public void OpenAddEditServiceWindow()
         {
             AddEditServiceWindow addEditServiceWindow;
-
             addEditServiceWindow = _services.GetRequiredService<AddEditServiceWindow>();
-            addEditServiceWindow.Closed += (_, _) => addEditServiceWindow = null;
 
+            _services.GetRequiredService<AddEditServiceWindowViewModel>().Title = "Добавление новой услуги";
+            _services.GetRequiredService<AddEditServiceWindowViewModel>().CurrentService = new Service();
+            _services.GetRequiredService<AddEditServiceWindowViewModel>().IdVisibility = Visibility.Collapsed;
+
+            addEditServiceWindow.Closed += (_, _) => addEditServiceWindow = null;
             addEditServiceWindow.ShowDialog();
         }
 
@@ -46,17 +50,24 @@ namespace AutoSerivce.Interfaces.Implementations
         {
             //addEditServiceWindow = _services.GetRequiredService<AddEditServiceWindow>(); 
 
-            AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel
-            {
-                Title = $"Редактирование услуги: {((Service)item).Title} | Id: {((Service)item).Id}",
-                CurrentService = (Service)item,
-                IdVisibility = Visibility.Visible
-            };
+            //AddEditServiceWindowViewModel addEditServiceWindowViewModel = new AddEditServiceWindowViewModel
+            //{
+            //    Title = $"Редактирование услуги: {((Service)item).Title} | Id: {((Service)item).Id}",
+            //    CurrentService = (Service)item,
+            //    IdVisibility = Visibility.Visible
+            //}; 
 
-            AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow
-            {
-                DataContext = addEditServiceWindowViewModel
-            };
+            //AddEditServiceWindow addEditServiceWindow = new AddEditServiceWindow
+            //{
+            //    DataContext = addEditServiceWindowViewModel
+            //};
+
+            AddEditServiceWindow addEditServiceWindow;
+            addEditServiceWindow = _services.GetRequiredService<AddEditServiceWindow>();
+
+            _services.GetRequiredService<AddEditServiceWindowViewModel>().Title = $"Редактирование услуги: {((Service)item).Title} | Id: {((Service)item).Id}"; //
+            _services.GetRequiredService<AddEditServiceWindowViewModel>().CurrentService = (Service)item; //
+            _services.GetRequiredService<AddEditServiceWindowViewModel>().IdVisibility = Visibility.Visible; //
 
             addEditServiceWindow.Closed += (_, _) => addEditServiceWindow = null;
             addEditServiceWindow.ShowDialog();

@@ -51,7 +51,7 @@ namespace AutoSerivce.ViewModels
         private IEnumerable<Service> _currentServices;
         public IEnumerable<Service> CurrentServices { get => _currentServices; set => Set(ref _currentServices, value); }
 
-        private Visibility _adminPanelVisibility = Visibility.Collapsed; //
+        private Visibility _adminPanelVisibility = Visibility.Visible; //
         public Visibility AdminPanelVisibility { get => _adminPanelVisibility; set => Set(ref _adminPanelVisibility, value); }
 
         private string _countServices;
@@ -85,7 +85,7 @@ namespace AutoSerivce.ViewModels
         public ICommand AddServiceCommand { get; set; }
         private bool CanAddServiceCommandExecute(object p) => true;
         public void OnAddServiceCommandExecuted(object p)
-        {
+        {          
             _userDialog.OpenAddEditServiceWindow();
 
             using (AutoServiceContext db = new AutoServiceContext())
