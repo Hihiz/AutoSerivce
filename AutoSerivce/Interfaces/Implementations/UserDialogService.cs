@@ -80,5 +80,13 @@ namespace AutoSerivce.Interfaces.Implementations
             adminWindow.Closed += (_, _) => adminWindow = null;
             adminWindow.Show();
         }
+
+        public void OpenClientServiceWindow()
+        {
+            ClientServiceWindow clientServiceWindow;
+            clientServiceWindow = _services.GetRequiredService<ClientServiceWindow>();
+            clientServiceWindow.Closed += (_, _) => clientServiceWindow = null;
+            clientServiceWindow.Show();
+        }
     }
 }
