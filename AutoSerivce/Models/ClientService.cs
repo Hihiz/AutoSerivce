@@ -15,9 +15,11 @@ public partial class ClientService
 
     public string? Comment { get; set; }
 
+    public virtual Client Client { get; set; } = null!;
+
     public virtual ICollection<DocumentByService> DocumentByServices { get; } = new List<DocumentByService>();
+
     public virtual ICollection<ProductSale> ProductSales { get; } = new List<ProductSale>();
 
     public virtual Service Service { get; set; } = null!;
-    public virtual Client Client { get; set; } = null!;
 }
