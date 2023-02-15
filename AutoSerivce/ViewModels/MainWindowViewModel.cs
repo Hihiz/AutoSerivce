@@ -85,7 +85,7 @@ namespace AutoSerivce.ViewModels
         public ICommand AddServiceCommand { get; set; }
         private bool CanAddServiceCommandExecute(object p) => true;
         public void OnAddServiceCommandExecuted(object p)
-        {          
+        {
             _userDialog.OpenAddEditServiceWindow();
 
             using (AutoServiceContext db = new AutoServiceContext())
