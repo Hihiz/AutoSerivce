@@ -25,19 +25,27 @@
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Width="120">
                 <TextBlock Text="Фамилия клиента"/>
                 <TextBox Text="{Binding SearchLastName, UpdateSourceTrigger=PropertyChanged}">
-                    
+
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <i:InvokeCommandAction Command="{Binding SearchLastNameStartTimeCommand}"/>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>
-                    
+
                 </TextBox>
             </StackPanel>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" Margin="5 5">
                 <TextBlock Text=" Дата записи"/>
-                <TextBox Text="{Binding SearchStartTime}"/>
+                <TextBox Text="{Binding SearchStartTime, UpdateSourceTrigger=PropertyChanged}">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchLastNameStartTimeCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+
+                </TextBox>
             </StackPanel>
         </Grid>
 
@@ -45,8 +53,8 @@
                   ItemsSource="{Binding CurrentClientServices}"
                   AutoGenerateColumns="False" 
                   IsReadOnly="True"
-                  FontSize="14"
-                 >
+                  FontSize="14">
+
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id Клиента" Binding="{Binding ClientId}"/>
                 <DataGridTextColumn Header="Фамилия Клиента" Binding="{Binding Client.LastName}"/>

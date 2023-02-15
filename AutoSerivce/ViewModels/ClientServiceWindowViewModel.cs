@@ -48,12 +48,10 @@ namespace AutoSerivce.ViewModels
                                                      /* .OrderBy(d => d.StartTime)*/.ToList();
 
                 if (SearchLastName != null)
-                    CurrentClientServices = CurrentClientServices.Where(t => t.Client.LastName.Contains(SearchLastName)).ToList();
+                    CurrentClientServices = CurrentClientServices.Where(c => c.Client.LastName.Contains(SearchLastName)).ToList();
 
-
-                //SearchStartTime
-
-
+                if (SearchStartTime != null)
+                    CurrentClientServices = CurrentClientServices.Where(c => c.StartTime.ToString().Contains(SearchStartTime)).ToList();
             }
         }
 
