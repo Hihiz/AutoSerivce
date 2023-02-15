@@ -14,6 +14,7 @@ namespace AutoSerivce.ViewModels
         public AdminWindowViewModel()
         {
             AdminPasswordCommand = new LambdaCommand(OnAdminPasswordCommandExecuted, CanAdminPasswordCommandExecute);
+            BackMainWindowCommand = new LambdaCommand(OnBackMainWindowCommandExecuted, CanBackMainWindowCommandExecute);
         }
 
         public AdminWindowViewModel(IUserDialog userDialog) : this()
@@ -50,6 +51,15 @@ namespace AutoSerivce.ViewModels
             }
             else
                 MessageBox.Show("Пароль введен не верно");
+        }
+
+        public ICommand BackMainWindowCommand { get; set; }
+        private bool CanBackMainWindowCommandExecute(object p) => true;
+        private void OnBackMainWindowCommandExecuted(object p)
+        {
+            _userDialog.OpenMainWindow(Visibility.Collapsed);
+
+            OnDialogComplete(EventArgs.Empty);
         }
 
         #endregion

@@ -22,7 +22,9 @@
             <TextBlock Text="Пароль" FontSize="14" />
             <TextBox Text="{Binding PassAdmin, UpdateSourceTrigger=PropertyChanged}"/>
 
-            <Button Content="Вход" Command="{Binding AdminPasswordCommand}"/>
+            <Button Content="Вход" Command="{Binding AdminPasswordCommand}" Margin="0, 0, 0, 10"
+                     Background="#FFFF9C1A"/>
+            <Button Content="Назад" Command="{Binding BackMainWindowCommand}" Background="#FFFF9C1A"/>
         </StackPanel>
     </Grid>
 </Window>
