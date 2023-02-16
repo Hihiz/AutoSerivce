@@ -34,7 +34,7 @@ namespace AutoSerivce.ViewModels
             SortFilterSearchServiceCommand = new LambdaCommand(OnSortFilterSearchServiceCommandExecuted, CanSortFilterSearchServiceCommandExecute);
             ClearCommand = new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
             ClientServiceWindowCommand = new LambdaCommand(OnClientServiceWindowCommandExecuted, CanClientServiceWindowCommandExecute);
-            AdminMenuItemVisibilityCommand = new LambdaCommand(OnAdminMenuItemVisibilityCommandExecuted, CanAdminMenuItemVisibilityCommandExecute);
+            AdminExitCommand = new LambdaCommand(OnAdminExitCommandExecuted, CanAdminExitCommandExecute);
         }
 
         public MainWindowViewModel(IUserDialog userDialog) : this()
@@ -104,10 +104,10 @@ namespace AutoSerivce.ViewModels
         public ICommand EditServiceCommand { get; set; }
         private bool CanEditServiceCommandExecute(object p)
         {
-            if (AdminPanelVisibility == Visibility.Collapsed)
-                return false;
+            if (AdminPanelVisibility == Visibility.Visible)
+                return p is Service;
 
-            return p is Service;
+            return false;
         }
         public void OnEditServiceCommandExecuted(object p)
         {
@@ -201,35 +201,38 @@ namespace AutoSerivce.ViewModels
             SearchText = "";
         }
 
-        public ICommand AdminMenuItemVisibilityCommand { get; set; }
-        private bool CanAdminMenuItemVisibilityCommandExecute(object p)
-        {
-            if (AdminPanelVisibility == Visibility.Collapsed)
-                return false;
-
-            return true;
-        }
-        private void OnAdminMenuItemVisibilityCommandExecuted(object p)
-        {
-
-        }
-
-
         public ICommand ClientServiceWindowCommand { get; set; }
-      
-        private bool CanClientServiceWindowCommandExecute(object p)
-        {
-            //if (AdminPanelVisibility == Visibility.Collapsed)
-            //    return false;
-
-            return true;
-        }
+        private bool CanClientServiceWindowCommandExecute(object p) => true;
         private void OnClientServiceWindowCommandExecuted(object p)
         {
             _userDialog.OpenClientServiceWindow();
 
             OnDialogComplete(EventArgs.Empty);
         }
+
+        public ICommand AdminExitCommand { get; set; }
+        public bool CanAdminExitCommandExecute(object p)
+        {
+            if (AdminPanelVisibility == Visibility.Visible)
+                return true;
+
+            return false;
+        }
+        public void OnAdminExitCommandExecuted(object p)
+        {
+            AdminPanelVisibility = Visibility.Collapsed;
+            AdminMenuItemVisibility = Visibility.Collapsed;
+        }
+
+        //public ICommand AdminMenuItemCommand { get; set; }
+        //private bool CanAdminMenuItemCommandExecute(object p) => true;
+        //private void OnAdminMenuItemCommandExecuted(object p)
+        //{
+        //    if (AdminPanelVisibility == Visibility.Visible)
+        //        AdminMenuItemVisibility = Visibility.Visible;
+
+
+        //}
 
         #endregion
     }
