@@ -33,6 +33,8 @@ namespace AutoSerivce.ViewModels
             AdminPanelCommand = new LambdaCommand(OnAdminPanelCommandExecuted, CanAdminPanelCommandExecute);
             SortFilterSearchServiceCommand = new LambdaCommand(OnSortFilterSearchServiceCommandExecuted, CanSortFilterSearchServiceCommandExecute);
             ClearCommand = new LambdaCommand(OnClearCommandExecuted, CanClearCommandExecute);
+            ClientServiceWindowCommand = new LambdaCommand(OnClientServiceWindowCommandExecuted, CanClientServiceWindowCommandExecute);
+            AdminMenuItemVisibilityCommand = new LambdaCommand(OnAdminMenuItemVisibilityCommandExecuted, CanAdminMenuItemVisibilityCommandExecute);
         }
 
         public MainWindowViewModel(IUserDialog userDialog) : this()
@@ -77,6 +79,10 @@ namespace AutoSerivce.ViewModels
 
         private string _searchText;
         public string SearchText { get => _searchText; set => Set(ref _searchText, value); }
+
+        private Visibility _adminMenuItemVisibility = Visibility.Collapsed;
+        public Visibility AdminMenuItemVisibility { get => _adminMenuItemVisibility; set => Set(ref _adminMenuItemVisibility, value); }
+
 
         #endregion
 
@@ -193,6 +199,36 @@ namespace AutoSerivce.ViewModels
             SortSelectedIndex = -1;
             FilterSelectedIndex = -1;
             SearchText = "";
+        }
+
+        public ICommand AdminMenuItemVisibilityCommand { get; set; }
+        private bool CanAdminMenuItemVisibilityCommandExecute(object p)
+        {
+            if (AdminPanelVisibility == Visibility.Collapsed)
+                return false;
+
+            return true;
+        }
+        private void OnAdminMenuItemVisibilityCommandExecuted(object p)
+        {
+
+        }
+
+
+        public ICommand ClientServiceWindowCommand { get; set; }
+      
+        private bool CanClientServiceWindowCommandExecute(object p)
+        {
+            //if (AdminPanelVisibility == Visibility.Collapsed)
+            //    return false;
+
+            return true;
+        }
+        private void OnClientServiceWindowCommandExecuted(object p)
+        {
+            _userDialog.OpenClientServiceWindow();
+
+            OnDialogComplete(EventArgs.Empty);
         }
 
         #endregion

@@ -38,6 +38,10 @@
                 <Separator/>
                 <MenuItem Header="О программе"/>
             </MenuItem>
+            <MenuItem Header="Администратор" Visibility="{Binding AdminMenuItemVisibility}">
+                <MenuItem Header="Ближайшие записи" Command="{Binding ClientServiceWindowCommand}"/>
+                <MenuItem Header="Выход" Command="{Binding AdminExitCommand}"/>
+            </MenuItem>
         </Menu>
 
         <Grid Grid.Row="1">
