@@ -28,6 +28,7 @@ namespace AutoSerivce.Interfaces.Implementations
 
             /*visibility = */
             _services.GetRequiredService<MainWindowViewModel>().AdminPanelVisibility = visibility;
+            _services.GetRequiredService<MainWindowViewModel>().AdminMenuItemVisibility = visibility;
 
             mainWindow.Closed += (_, _) => mainWindow = null;
             mainWindow.Show();

@@ -46,7 +46,7 @@ namespace AutoSerivce.ViewModels
             if (PassAdmin == "0000")
             {
                 _userDialog.OpenMainWindow(Visibility.Visible);
-
+                
                 OnDialogComplete(EventArgs.Empty);
             }
             else
