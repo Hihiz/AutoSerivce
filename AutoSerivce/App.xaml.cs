@@ -82,6 +82,7 @@ namespace AutoSerivce
             base.OnStartup(e);
 
             Services.GetRequiredService<IUserDialog>().OpenMainWindow();
+            //Services.GetRequiredService<IUserDialog>().OpenClientServiceWindow();
         }
     }
 }

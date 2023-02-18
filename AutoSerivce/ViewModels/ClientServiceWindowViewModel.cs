@@ -1,7 +1,9 @@
 ﻿using AutoSerivce.Commands;
+using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -10,6 +12,8 @@ namespace AutoSerivce.ViewModels
 {
     public class ClientServiceWindowViewModel : DialogViewModel
     {
+        private readonly IUserDialog _userDialog = null;
+
         public ClientServiceWindowViewModel()
         {
             using (AutoServiceContext db = new AutoServiceContext())
@@ -20,6 +24,12 @@ namespace AutoSerivce.ViewModels
             }
 
             SearchLastNameStartTimeCommand = new LambdaCommand(OnSearchLastNameStartTimeCommanExecuted, CanSearchLastNameStartTimeCommanExecute);
+            BackMainWindowCommand = new LambdaCommand(OnBackMainWindowCommandExecuted, CanBackMainWindowCommandExecute);
+        }
+
+        public ClientServiceWindowViewModel(IUserDialog userDialog) : this()
+        {
+            _userDialog = userDialog;
         }
 
         #region Свойства
@@ -53,6 +63,14 @@ namespace AutoSerivce.ViewModels
                 if (SearchStartTime != null)
                     CurrentClientServices = CurrentClientServices.Where(c => c.StartTime.ToString().Contains(SearchStartTime)).ToList();
             }
+        }
+        public ICommand BackMainWindowCommand { get; set; }
+        private bool CanBackMainWindowCommandExecute(object p) => true;
+        private void OnBackMainWindowCommandExecuted(object p)
+        {
+            _userDialog.OpenMainWindow(System.Windows.Visibility.Visible);
+
+            OnDialogComplete(EventArgs.Empty);
         }
 
         #endregion
