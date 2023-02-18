@@ -46,7 +46,8 @@ namespace AutoSerivce.ViewModels
             if (PassAdmin == "0000")
             {
                 _userDialog.OpenMainWindow(Visibility.Visible);
-                
+                MessageBox.Show("Режим администратора активирован", "Успешно");
+
                 OnDialogComplete(EventArgs.Empty);
             }
             else
