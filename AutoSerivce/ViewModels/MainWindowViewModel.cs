@@ -222,6 +222,8 @@ namespace AutoSerivce.ViewModels
         {
             AdminPanelVisibility = Visibility.Collapsed;
             AdminMenuItemVisibility = Visibility.Collapsed;
+
+            MessageBox.Show("Вы вышли из режима администратора", "Успешно");
         }
 
         //public ICommand AdminMenuItemCommand { get; set; }
