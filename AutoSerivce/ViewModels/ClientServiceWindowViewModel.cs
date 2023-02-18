@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 
 namespace AutoSerivce.ViewModels
@@ -68,7 +69,7 @@ namespace AutoSerivce.ViewModels
         private bool CanBackMainWindowCommandExecute(object p) => true;
         private void OnBackMainWindowCommandExecuted(object p)
         {
-            _userDialog.OpenMainWindow(System.Windows.Visibility.Visible);
+            _userDialog.OpenMainWindow(Visibility.Visible);
 
             OnDialogComplete(EventArgs.Empty);
         }
