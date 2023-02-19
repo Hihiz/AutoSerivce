@@ -81,7 +81,7 @@ namespace AutoSerivce.ViewModels
 
                     //db.Services.Add(service);
 
-                    if (String.IsNullOrEmpty(_newImage))
+                    if (string.IsNullOrEmpty(_newImage))
                     {
                         CurrentService.MainImagePath = "picture.jpg";
                         BitmapImage image = new BitmapImage(new Uri(CurrentService.ImagePath));
@@ -114,18 +114,27 @@ namespace AutoSerivce.ViewModels
                 }
                 else
                 {
-                    db.Services.Update(CurrentService);
-                    MessageBox.Show("Услуга успешна обновлена");
+                    try
+                    {
+                        db.Services.Update(CurrentService);
+                        db.SaveChanges();
+                        MessageBox.Show("Услуга успешна обновлена");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Услуга '{CurrentService.Title}' существует, введите новое название", "Ошибка ! Название уже существует !");
+                    }
                 }
 
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Услуга не сохранена, заполните данные и повторите попытку", "Ошибка");
-                }
+                //try
+                //{
+
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("Услуга не сохранена, заполните данные и повторите попытку", "Ошибка");
+                //}
 
                 CurrentServices = db.Services.ToList();
             }
