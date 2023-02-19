@@ -79,7 +79,7 @@ namespace AutoSerivce.ViewModels
                         return;
                     }
 
-                    db.Services.Add(service);
+                    //db.Services.Add(service);
 
                     if (String.IsNullOrEmpty(_newImage))
                     {
@@ -101,7 +101,16 @@ namespace AutoSerivce.ViewModels
                         CurrentService.ImagePath = image.UriSource.ToString();
                     }
 
-                    MessageBox.Show("Услуга успешно добавлена");
+                    try
+                    {
+                        db.Services.Add(service);
+                        db.SaveChanges();
+                        MessageBox.Show("Услуга успешно добавлена");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Услуга '{CurrentService.Title}' существует, введите новое название", "Ошибка ! Название уже существует !");
+                    }
                 }
                 else
                 {
