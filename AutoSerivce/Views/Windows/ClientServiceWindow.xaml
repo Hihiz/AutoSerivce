@@ -27,6 +27,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
+                <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
 
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Width="120">
@@ -55,6 +56,10 @@
                 </TextBox>
             </StackPanel>
 
+            <StackPanel Grid.Column="2">
+                <TextBlock Text="{Binding CountClientServices}"/>
+            </StackPanel>
+
         </Grid>
 
         <DataGrid Grid.Row="2" 
@@ -71,5 +76,6 @@
                 <DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}"/>
             </DataGrid.Columns>
         </DataGrid>
+
     </Grid>
 </Window>

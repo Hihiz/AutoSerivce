@@ -22,6 +22,8 @@ namespace AutoSerivce.ViewModels
                 CurrentClientServices = db.ClientServices.Include(c => c.Client)
                                                   .Include(s => s.Service)
                                                  /* .OrderBy(d => d.StartTime)*/.ToList(); // по возрастанию, дата которая ближе всего
+
+                CountClientServices = $"Количество: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
             }
 
             SearchLastNameStartTimeCommand = new LambdaCommand(OnSearchLastNameStartTimeCommanExecuted, CanSearchLastNameStartTimeCommanExecute);
@@ -37,12 +39,18 @@ namespace AutoSerivce.ViewModels
 
         private IEnumerable<ClientService> _currentClientServices;
         public IEnumerable<ClientService> CurrentClientServices { get => _currentClientServices; set => Set(ref _currentClientServices, value); }
+
         private string _title = "Ближайшие записи на услуги";
         public string Title { get => _title; set => Set(ref _title, value); }
+
         private string _searchLastName;
         public string SearchLastName { get => _searchLastName; set => Set(ref _searchLastName, value); }
+
         private string _searchStartTime;
         public string SearchStartTime { get => _searchStartTime; set => Set(ref _searchStartTime, value); }
+
+        private string _countClientServices;
+        public string CountClientServices { get => _countClientServices; set => Set(ref _countClientServices, value); }
 
         #endregion
 
@@ -63,6 +71,8 @@ namespace AutoSerivce.ViewModels
 
                 if (SearchStartTime != null)
                     CurrentClientServices = CurrentClientServices.Where(c => c.StartTime.ToString().Contains(SearchStartTime)).ToList();
+
+                CountClientServices = $"Количество: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
             }
         }
         public ICommand BackMainWindowCommand { get; set; }
