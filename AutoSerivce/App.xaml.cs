@@ -22,6 +22,7 @@ namespace AutoSerivce
             services.AddSingleton<AddEditServiceWindowViewModel>();
             services.AddTransient<AdminWindowViewModel>();
             services.AddSingleton<ClientServiceWindowViewModel>();
+            services.AddSingleton<ServiceClientEntryWindowViewModel>();
 
             services.AddSingleton<IUserDialog, UserDialogService>();
 
@@ -74,6 +75,17 @@ namespace AutoSerivce
                     return window;
                 });
 
+            services.AddTransient(
+                s =>
+                {
+                    var model = s.GetRequiredService<ServiceClientEntryWindowViewModel>();
+                    var window = new ServiceClientEntryWindow { DataContext = model };
+
+                    model.DialogComplete += (_, _) => window.Close();
+
+                    return window;
+                });
+
             return services;
         }
 
@@ -81,8 +93,10 @@ namespace AutoSerivce
         {
             base.OnStartup(e);
 
-            Services.GetRequiredService<IUserDialog>().OpenMainWindow();
+            //Services.GetRequiredService<IUserDialog>().OpenMainWindow();
             //Services.GetRequiredService<IUserDialog>().OpenClientServiceWindow();
+            Services.GetRequiredService<IUserDialog>().OpenServiceClientEntryWindow();
+
         }
     }
 }
