@@ -114,6 +114,29 @@ namespace AutoSerivce.ViewModels
                 }
                 else
                 {
+                    if (_newImage != null)
+                    {
+                        string newRelativePath = $"{System.DateTime.Now.ToString("HHmmss")}_{_newImage}";
+                        CurrentService.MainImagePath = newRelativePath;
+                        MessageBox.Show($"Новое фото: {CurrentService.MainImagePath} присвоено!");
+                        File.Copy(_newImagePath, System.IO.Path.Combine(Environment.CurrentDirectory, $"Услуги автосервиса/{CurrentService.MainImagePath}"));
+                        _newImage = null;
+                    }
+
+                    if (!string.IsNullOrEmpty(_oldImage))
+                    {
+                        try
+                        {
+                            File.Delete(_oldImage);
+                            MessageBox.Show($"Старое фото: {_oldImage} удалено!");
+                            _oldImage = null;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message.ToString());
+                        }
+                    }
+
                     try
                     {
                         db.Services.Update(CurrentService);
