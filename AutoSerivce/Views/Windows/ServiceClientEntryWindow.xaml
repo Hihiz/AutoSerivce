@@ -47,13 +47,11 @@
                       SelectedValue="{Binding CurrentClientService.GenderCode}"/>
 
             <StackPanel Height="200" Width="200">
-
                 <TextBlock Text="Фото клиента"/>
                 <Border BorderBrush="#FFFFFFE1" BorderThickness="3">
                     <Image Height="150" Width="200" Source="{Binding CurrentClientService.ImagePath}"/>
                 </Border>
                 <Button Content="Добавить фото" Command="{Binding AddImageClientCommand}"/>
-
             </StackPanel>
 
         </StackPanel>
@@ -64,11 +62,27 @@
 
         <!--После регистрации нового клиента, можем его записать на услгу-->
 
-        <StackPanel Grid.Column="1" Grid.Row="1">
-            <Button Content="Записать на услгу" Margin="10"/>
+        <StackPanel Grid.Column="1">
+            <TextBlock Text="Выберите клиента для записи"/>
+            <ComboBox ItemsSource="{Binding ClientName}"
+                      DisplayMemberPath="LastName"
+                      SelectedValue="{Binding CurrClientService.Client}"/>
+
+            <TextBlock Text="Выберите услугу"/>
+            <ComboBox ItemsSource="{Binding ServiceName}"
+                      DisplayMemberPath="Title"
+                      SelectedValue="{Binding CurrClientService.Service}"/>
+
+            <TextBlock Text="Введите дату начала выполнения"/>
+            <TextBox Text="{Binding CurrClientService.StartTime}"/>
+            
+            <TextBlock Text="Комментарий"/>
+            <TextBox Text="{Binding CurrClientService.Comment}"/>
         </StackPanel>
 
-        
-        
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Button Content="Записать на услгу" Margin="10" Command="{Binding EntryClientServiceCommand}"/>
+        </StackPanel>
+
     </Grid>
 </Window>
