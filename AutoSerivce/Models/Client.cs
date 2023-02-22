@@ -47,7 +47,7 @@ public partial class Client : ViewModel
             }
             else
             {
-                PhotoPath = "picture.jpg";
+                PhotoPath = "picture.png";
                 return null;
             }
         }

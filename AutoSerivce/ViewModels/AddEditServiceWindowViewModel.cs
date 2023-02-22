@@ -142,22 +142,12 @@ namespace AutoSerivce.ViewModels
                         db.Services.Update(CurrentService);
                         db.SaveChanges();
                         MessageBox.Show("Услуга успешна обновлена");
-
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show($"Услуга '{CurrentService.Title}' существует, введите новое название", "Ошибка ! Название уже существует !");
                     }
                 }
-
-                //try
-                //{
-
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("Услуга не сохранена, заполните данные и повторите попытку", "Ошибка");
-                //}
 
                 CurrentServices = db.Services.ToList();
             }
