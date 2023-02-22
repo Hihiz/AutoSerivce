@@ -5,8 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoSerivce.Views.Windows"
         mc:Ignorable="d"
-        Title="ServiceClientEntryWindow" Height="450" Width="800">
+         Title="{Binding Title}" 
+        Height="650" 
+        Width="700"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="10">
+
+            <TextBlock Text="Фамилия"/>
+            <TextBox Text="{Binding CurrentClientService.LastName}"/>
+
+            <TextBlock Text="Имя"/>
+            <TextBox Text="{Binding CurrentClientService.FirsName}"/>
+
+            <TextBlock Text="Отчество"/>
+            <TextBox Text="{Binding CurrentClientService.Patronymic}"/>
+
+            <TextBlock Text="Дата рождения"/>
+            <TextBox Text="{Binding CurrentClientService.Birthday}"/>
+
+            <TextBlock Text="Дата регистрации"/>
+            <TextBox Text="{Binding CurrentClientService.RegistrationDate}"/>
+
+            <TextBlock Text="Email"/>
+            <TextBox Text="{Binding CurrentClientService.Email}"/>
+
+            <TextBlock Text="Номер телефона"/>
+            <TextBox Text="{Binding CurrentClientService.Phone}"/>
+
+            <TextBlock Text="Пол"/>
+            <ComboBox ItemsSource="{Binding GenderName}"
+                      DisplayMemberPath="Name"
+                      SelectedValue="{Binding CurrentClientService.GenderCode}"/>
+            <!--<TextBox Text="{Binding CurrentClientService.GenderCodeId}"/>-->
+
+            <StackPanel Height="200" Width="200">
+
+                <TextBlock Text="Фото клиента"/>
+                <Border BorderBrush="#FFFFFFE1" BorderThickness="3">
+                    <Image Height="150" Width="200" Source="{Binding CurrentClientService.ImagePath}"/>
+                </Border>
+                <Button Content="Добавить"/>
+
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <Button Content="Зарегистрировать клиента" Margin="10" Command="{Binding AddClientCommand}"/>
+        </StackPanel>
+
+        <!--После регистрации нового клиента, можем его записать на услгу-->
+
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <Button Content="Записать на услгу" Margin="10"/>
+        </StackPanel>
+
     </Grid>
 </Window>
