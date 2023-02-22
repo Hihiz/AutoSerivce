@@ -1,9 +1,12 @@
-﻿using System;
+﻿using AutoSerivce.ViewModels.Base;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 
 namespace AutoSerivce.Models;
 
-public partial class Client
+public partial class Client : ViewModel
 {
     public int Id { get; set; }
 
@@ -25,9 +28,30 @@ public partial class Client
 
     public string? PhotoPath { get; set; }
 
-    public virtual ICollection<ClientService> ClientServices { get; } = new List<ClientService>();
-
     public virtual Gender GenderCode { get; set; } = null!;
 
+    public virtual ICollection<ClientService> ClientServices { get; } = new List<ClientService>();
     public virtual ICollection<TagOfClient> TagOfClients { get; } = new List<TagOfClient>();
+
+    private string _imagePath;
+
+    [NotMapped]
+    public virtual string? ImagePath
+    {
+        get
+        {
+            if (File.Exists(System.IO.Path.Combine(Environment.CurrentDirectory, $"Фото клиентов/{PhotoPath}")))
+            {
+                _imagePath = System.IO.Path.Combine(Environment.CurrentDirectory, $"Фото клиентов/{PhotoPath}");
+                return _imagePath;
+            }
+            else
+            {
+                PhotoPath = "picture.jpg";
+                return null;
+            }
+        }
+
+        set => Set(ref _imagePath, value);
+    }
 }
