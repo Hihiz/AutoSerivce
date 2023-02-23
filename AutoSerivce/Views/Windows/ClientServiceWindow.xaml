@@ -72,7 +72,7 @@
                 <DataGridTextColumn Header="Id Клиента" Binding="{Binding ClientId}"/>
                 <DataGridTextColumn Header="Фамилия Клиента" Binding="{Binding Client.LastName}"/>
                 <DataGridTextColumn Header="Услуга" Binding="{Binding Service.Title}"/>
-                <DataGridTextColumn Header="Дата записи" Binding="{Binding StartTime, StringFormat=\{0:dd.MM.yy\}}"/>
+                <DataGridTextColumn Header="Дата записи" Binding="{Binding StartTime}"/> <!--, StringFormat=\{0:dd.MM.yy\}-->
                 <DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}"/>
             </DataGrid.Columns>
         </DataGrid>
