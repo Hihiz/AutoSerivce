@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoSerivce.Views.Windows"
+        xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
          Title="{Binding Title}" 
         Height="650" 
@@ -17,11 +18,17 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Column="0" Margin="10">
+        <StackPanel>
+            <TextBlock Text="Регистрация клиента" FontSize="15" FontWeight="Bold" Margin="25, 0, 0, 0"/>
+            <Image Source="/Resources/ServiceClientIcon/newUser.png" Height="20" HorizontalAlignment="Left" Margin="3, -19, 0, 0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
 
             <TextBlock Text="Фамилия"/>
             <TextBox Text="{Binding CurrentClientService.LastName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -56,13 +63,18 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="2">
             <Button Content="Зарегистрировать клиента" Margin="10" Command="{Binding AddClientCommand}"/>
         </StackPanel>
 
         <!--После регистрации нового клиента, можем его записать на услгу-->
 
-        <StackPanel Grid.Column="1">
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="Записать клиента на услугу" FontSize="15" FontWeight="Bold" Margin="25, 0, 0, 0"/>
+            <Image Source="/Resources/ServiceClientIcon/entyUserService.png" Height="20" HorizontalAlignment="Left" Margin="-5, -19, 0, 0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
             <TextBlock Text="Выберите клиента для записи"/>
             <ComboBox ItemsSource="{Binding ClientName}"
                       DisplayMemberPath="LastName"
@@ -75,12 +87,12 @@
 
             <TextBlock Text="Введите дату начала выполнения"/>
             <TextBox Text="{Binding CurrClientService.StartTime}"/>
-            
+
             <TextBlock Text="Комментарий"/>
             <TextBox Text="{Binding CurrClientService.Comment}"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="1">
+        <StackPanel Grid.Column="1" Grid.Row="2">
             <Button Content="Записать на услгу" Margin="10" Command="{Binding EntryClientServiceCommand}"/>
         </StackPanel>
 
