@@ -19,7 +19,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
@@ -53,10 +53,10 @@
                       DisplayMemberPath="Name"
                       SelectedValue="{Binding CurrentClientService.GenderCode}"/>
 
-            <StackPanel Height="200" Width="200">
+            <StackPanel Height="250" Width="300">
                 <TextBlock Text="Фото клиента"/>
                 <Border BorderBrush="#FFFFFFE1" BorderThickness="3">
-                    <Image Height="150" Width="200" Source="{Binding CurrentClientService.ImagePath}"/>
+                    <Image Height="190" Width="270" Stretch="Fill" Source="{Binding CurrentClientService.ImagePath}"/>
                 </Border>
                 <Button Content="Добавить фото" Command="{Binding AddImageClientCommand}"/>
             </StackPanel>
