@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -24,15 +23,22 @@ namespace AutoSerivce.ViewModels
         public ServiceClientEntryWindowViewModel()
         {
             CurrentClientService = new Client();
+            CurrClientService = new ClientService();
 
             using (AutoServiceContext db = new AutoServiceContext())
             {
                 CurrentClientServices = db.Clients.ToList();
                 GenderName = db.Genders.ToList();
+
+                ClientName = db.Clients.ToList();
+                ServiceName = db.Services.ToList();
+
+                //CurrClientService = db.ClientServices.Include(c => c.Client).Include(s => s.Service).ToList();
             }
 
             AddClientCommand = new LambdaCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
             AddImageClientCommand = new LambdaCommand(OnAddImageClientCommandExecuted, CanAddImageClientCommandExecute);
+            EntryClientServiceCommand = new LambdaCommand(OnEntryClientServiceCommandExecuted, CanEntryClientServiceCommandExecute);
         }
 
         public ServiceClientEntryWindowViewModel(IUserDialog userDialog) : this()
@@ -53,6 +59,15 @@ namespace AutoSerivce.ViewModels
 
         private List<Gender> _genderName;
         public List<Gender> GenderName { get => _genderName; set => Set(ref _genderName, value); }
+
+        private ClientService _currClientService;
+        public ClientService CurrClientService { get => _currClientService; set => Set(ref _currClientService, value); }
+
+        private List<Client> _clientName;
+        public List<Client> ClientName { get => _clientName; set => Set(ref _clientName, value); }
+
+        private List<Service> _serviceName;
+        public List<Service> ServiceName { get => _serviceName; set => Set(ref _serviceName, value); }
 
         #endregion
 
@@ -215,6 +230,48 @@ namespace AutoSerivce.ViewModels
 
                 stream.Dispose();
             }
+        }
+
+        public ICommand EntryClientServiceCommand { get; set; }
+        private bool CanEntryClientServiceCommandExecute(object p)
+        {
+            if (CurrClientService.Client == null)
+                return false;
+
+            if (CurrClientService.Service == null)
+                return false;
+
+            return true;
+        }
+        private void OnEntryClientServiceCommandExecuted(object p)
+        {
+            //Сделать добавление клиента и его слугу в таблицу ClientService, разобраться с форматом даты при регистрации клиента на дату рождения и на StartTime
+
+            using (AutoServiceContext db = new AutoServiceContext())
+            {
+                if (CurrClientService.Id == 0)
+                {
+                    ClientService clientService = new ClientService()
+                    {
+                        ClientId = CurrClientService.Client.Id, // FK
+                        ServiceId = CurrClientService.Service.Id, // FK
+                        StartTime = CurrClientService.StartTime,
+                        Comment = CurrClientService.Comment
+                    };
+
+                    try
+                    {
+                        db.ClientServices.Add(clientService);
+                        db.SaveChanges();
+                        MessageBox.Show($"Клиент {CurrClientService.Client.FirsName} {CurrClientService.Client.LastName} {CurrClientService.Client.Patronymic} записан на услугу {CurrClientService.Service.Title}", "Успешно");
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+
         }
 
         #endregion
