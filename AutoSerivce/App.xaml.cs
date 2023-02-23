@@ -4,7 +4,10 @@ using AutoSerivce.ViewModels;
 using AutoSerivce.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Globalization;
+using System.Threading;
 using System.Windows;
+using System.Windows.Markup;
 
 namespace AutoSerivce
 {
@@ -91,6 +94,15 @@ namespace AutoSerivce
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            // Региональные параметры(дата)
+            var cultureInfo = new CultureInfo("ru-RU");
+            Thread.CurrentThread.CurrentCulture = cultureInfo;
+            Thread.CurrentThread.CurrentUICulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
+
             base.OnStartup(e);
 
             //Services.GetRequiredService<IUserDialog>().OpenMainWindow();
