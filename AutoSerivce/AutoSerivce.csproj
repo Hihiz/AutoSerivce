@@ -9,8 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ServiceClientIcon\EntyUserService.png" />
+    <None Remove="Resources\ServiceClientIcon\NewUser.png" />
     <None Remove="Resources\service_logo.ico" />
     <None Remove="Resources\service_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\ServiceClientIcon\newUser.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\ServiceClientIcon\entyUserService.png" />
     <Resource Include="Resources\service_logo.ico" />
     <Resource Include="Resources\service_logo.png" />
   </ItemGroup>
