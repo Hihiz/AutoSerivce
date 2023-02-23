@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoSerivce.Views.Windows"
+        xmlns:cmd="clr-namespace:AutoSerivce.Commands.Base"
         xmlns:fa="http://schemas.fontawesome.com/icons/"
         mc:Ignorable="d"
          Title="{Binding Title}" 
@@ -11,6 +12,10 @@
         Width="700"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
+
+    <Window.Resources>
+        <cmd:CloseApplicationCommand x:Key="CloseApplicationCommand"/>
+    </Window.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
@@ -28,6 +33,7 @@
         <Menu Grid.ColumnSpan="2">
             <MenuItem Header="Сервис">
                 <MenuItem Header="Главное окно" Command="{Binding BackMainWindowCommand}"/>
+                <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
             </MenuItem>
         </Menu>
 
