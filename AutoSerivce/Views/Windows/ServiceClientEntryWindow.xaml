@@ -11,6 +11,7 @@
         Width="700"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -19,16 +20,23 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="25"/>
             <RowDefinition />
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel>
+        <Menu Grid.ColumnSpan="2">
+            <MenuItem Header="Сервис">
+                <MenuItem Header="Главное окно" Command="{Binding BackMainWindowCommand}"/>
+            </MenuItem>
+        </Menu>
+
+        <StackPanel Grid.Row="1">
             <TextBlock Text="Регистрация клиента" FontSize="15" FontWeight="Bold" Margin="25, 0, 0, 0"/>
             <Image Source="/Resources/ServiceClientIcon/newUser.png" Height="20" HorizontalAlignment="Left" Margin="3, -19, 0, 0" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="0" Margin="10">
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10">
 
             <TextBlock Text="Фамилия"/>
             <TextBox Text="{Binding CurrentClientService.LastName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -40,7 +48,7 @@
             <TextBox Text="{Binding CurrentClientService.Patronymic}"/>
 
             <TextBlock Text="Дата рождения"/>
-            <TextBox Text="{Binding CurrentClientService.Birthday, StringFormat=\{0:dd.MM.yyyy\}}"/>
+            <TextBox Text="{Binding CurrentClientService.Birthday}"/>
 
             <TextBlock Text="Email"/>
             <TextBox Text="{Binding CurrentClientService.Email}"/>
@@ -63,18 +71,18 @@
 
         </StackPanel>
 
-        <StackPanel Grid.Row="2">
+        <StackPanel Grid.Row="3">
             <Button Content="Зарегистрировать клиента" Margin="10" Command="{Binding AddClientCommand}"/>
         </StackPanel>
 
         <!--После регистрации нового клиента, можем его записать на услгу-->
 
-        <StackPanel Grid.Row="0" Grid.Column="1">
+        <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBlock Text="Записать клиента на услугу" FontSize="15" FontWeight="Bold" Margin="25, 0, 0, 0"/>
             <Image Source="/Resources/ServiceClientIcon/entyUserService.png" Height="20" HorizontalAlignment="Left" Margin="-5, -19, 0, 0" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="1" Margin="10">
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="10">
             <TextBlock Text="Выберите клиента для записи"/>
             <ComboBox ItemsSource="{Binding ClientName}"
                       DisplayMemberPath="LastName"
@@ -86,14 +94,16 @@
                       SelectedValue="{Binding CurrClientService.Service}"/>
 
             <TextBlock Text="Введите дату начала выполнения"/>
-            <TextBox Text="{Binding CurrClientService.StartTime}"/>
+            <TextBox Text="{Binding CurrClientService.StartTime}" />
+
+            <!--, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}-->
 
             <TextBlock Text="Комментарий"/>
             <TextBox Text="{Binding CurrClientService.Comment}"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Grid.Row="2">
-            <Button Content="Записать на услгу" Margin="10" Command="{Binding EntryClientServiceCommand}"/>
+        <StackPanel Grid.Column="1" Grid.Row="3">
+            <Button Content="Записать на услугу" Margin="10" Command="{Binding EntryClientServiceCommand}"/>
         </StackPanel>
 
     </Grid>
