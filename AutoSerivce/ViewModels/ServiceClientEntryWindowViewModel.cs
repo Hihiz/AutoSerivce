@@ -135,7 +135,6 @@ namespace AutoSerivce.ViewModels
                         db.Clients.Add(client);
                         db.SaveChanges();
                         MessageBox.Show($"Клиент {CurrentClientService.FirsName} {CurrentClientService.LastName} {CurrentClientService.Patronymic} зарегистрирован", "Успешно");
-
                     }
                     catch (Exception ex)
                     {
@@ -178,6 +177,9 @@ namespace AutoSerivce.ViewModels
                         MessageBox.Show(ex.Message);
                     }
                 }
+
+                // После добавления данных клиента, обновляем свойство с данными клиентов
+                ClientName = db.Clients.ToList();
             }
         }
 
@@ -273,7 +275,6 @@ namespace AutoSerivce.ViewModels
                     }
                 }
             }
-
         }
 
         public ICommand BackMainWindowCommand { get; set; }
