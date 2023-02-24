@@ -20,6 +20,7 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Сервис">
                 <MenuItem Header="Назад" Command="{Binding BackMainWindowCommand}"/>
+                <MenuItem Header="Регистрация Клиента/Запись на услугу" Command="{Binding ServiceClientEntryWindowCommand}"/>
             </MenuItem>
         </Menu>
 
@@ -81,18 +82,20 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
 
-                            --><!--Не работает--><!--
+                            -->
+                <!--Не работает-->
+                <!--
                             <Button Content="Изменить" Width="100" Background="#FFFFFFE1" Command="{Binding EditClientServiceCommand}"
                                     CommandParameter="{Binding ElementName=gridClientServices, Path=SelectedValue}"/>
 
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>-->
-                
+
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Content="Изменить" Width="100" Background="#FFFFFFE1" Command="{Binding EditClientServiceCommand}"
+        <Button Content="Изменить запись" Width="100" Background="#FFFFFFE1" Command="{Binding EditClientServiceCommand}"
                                     CommandParameter="{Binding ElementName=gridClientServices, Path=SelectedValue}"/>
     </Grid>
 </Window>

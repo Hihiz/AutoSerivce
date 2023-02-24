@@ -29,6 +29,7 @@ namespace AutoSerivce.ViewModels
             SearchLastNameStartTimeCommand = new LambdaCommand(OnSearchLastNameStartTimeCommanExecuted, CanSearchLastNameStartTimeCommanExecute);
             BackMainWindowCommand = new LambdaCommand(OnBackMainWindowCommandExecuted, CanBackMainWindowCommandExecute);
             EditClientServiceCommand = new LambdaCommand(OnEditClientServiceCommandExecuted, CanEditClientServiceCommandExecute);
+            ServiceClientEntryWindowCommand = new LambdaCommand(OnServiceClientEntryWindowCommandExecuted, CanServiceClientEntryWindowCommandExecute);
         }
 
         public ClientServiceWindowViewModel(IUserDialog userDialog) : this()
@@ -104,6 +105,13 @@ namespace AutoSerivce.ViewModels
             CurrentClientService = (ClientService)p;
 
             _userDialog.OpenServiceClientEntryWindow(CurrentClientService);
+        }
+
+        public ICommand ServiceClientEntryWindowCommand { get; set; }
+        private bool CanServiceClientEntryWindowCommandExecute(object p) => true;
+        private void OnServiceClientEntryWindowCommandExecuted(object p)
+        {
+            _userDialog.OpenServiceClientEntryWindow();
         }
 
         #endregion
