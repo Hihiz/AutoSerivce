@@ -2,7 +2,6 @@
 using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
-using AutoSerivce.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -44,6 +43,9 @@ namespace AutoSerivce.ViewModels
 
         private ClientService _currentClientService;
         public ClientService CurrentClientService { get => _currentClientService; set => Set(ref _currentClientService, value); }
+
+        private Client _currentClient;
+        public Client CurrentClient { get => _currentClient; set => Set(ref _currentClient, value); }
 
         private string _title = "Ближайшие записи на услуги";
         public string Title { get => _title; set => Set(ref _title, value); }
@@ -102,11 +104,6 @@ namespace AutoSerivce.ViewModels
             CurrentClientService = (ClientService)p;
 
             _userDialog.OpenServiceClientEntryWindow(CurrentClientService);
-
-            //using (AutoServiceContext db = new AutoServiceContext())
-            //{
-            //    CurrentClientServices = db.ClientServices.ToList();
-            //}
         }
 
         #endregion

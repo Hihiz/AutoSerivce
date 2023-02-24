@@ -2,7 +2,7 @@
 using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,15 +28,10 @@ namespace AutoSerivce.ViewModels
 
             using (AutoServiceContext db = new AutoServiceContext())
             {
-                //CurrentClientServices = db.Clients.ToList();
                 GenderName = db.Genders.ToList();
 
                 ClientName = db.Clients.ToList();
                 ServiceName = db.Services.ToList();
-
-                //CurrClientService = db.ClientServices.Include(c => c.Client).Include(s => s.Service).ToList();
-
-                //CurrentClientServices = db.ClientServices.Include(c => c.Client).Include(s => s.Service).ToList();
             }
 
             AddClientCommand = new LambdaCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
@@ -51,9 +46,6 @@ namespace AutoSerivce.ViewModels
         }
 
         #region Свойства
-
-        //private IEnumerable<Client> _currentClientServices;
-        //public IEnumerable<Client> CurrentClientServices { get => _currentClientServices; set => Set(ref _currentClientServices, value); }
 
         private IEnumerable<ClientService> _currentClientServices;
         public IEnumerable<ClientService> CurrentClientServices { get => _currentClientServices; set => Set(ref _currentClientServices, value); }

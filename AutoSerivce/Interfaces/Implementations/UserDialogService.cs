@@ -3,6 +3,7 @@ using AutoSerivce.ViewModels;
 using AutoSerivce.Views.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using System.Windows;
 
 namespace AutoSerivce.Interfaces.Implementations
@@ -105,6 +106,11 @@ namespace AutoSerivce.Interfaces.Implementations
 
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().Title = $"Редактирование клиента: {((ClientService)item).Client.LastName} {((ClientService)item).Client.FirsName} {((ClientService)item).Client.Patronymic} | Id: {((ClientService)item).Client.Id}";
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrClientService = (ClientService)item;
+
+            //using (AutoServiceContext db = new AutoServiceContext())
+            //{              
+            //    _services.GetRequiredService<ServiceClientEntryWindowViewModel>().ClientName = db.Clients.ToList(); 
+            //}
 
             serviceClientEntryWindow.Closed += (_, _) => serviceClientEntryWindow = null;
             serviceClientEntryWindow.ShowDialog();
