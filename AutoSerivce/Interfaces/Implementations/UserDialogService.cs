@@ -98,6 +98,7 @@ namespace AutoSerivce.Interfaces.Implementations
 
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().Title = "Регистрация нового клиента";
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrClientService = new ClientService();
+            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrentClientService = new Client();
 
             serviceClientEntryWindow.Closed += (_, _) => serviceClientEntryWindow = null;
             serviceClientEntryWindow.ShowDialog();
@@ -110,6 +111,7 @@ namespace AutoSerivce.Interfaces.Implementations
 
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().Title = $"Редактирование клиента: {((ClientService)item).Client.LastName} {((ClientService)item).Client.FirsName} {((ClientService)item).Client.Patronymic} | Id: {((ClientService)item).Client.Id}";
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrClientService = (ClientService)item;
+            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrentClientService = new Client();
 
             serviceClientEntryWindow.Closed += (_, _) => serviceClientEntryWindow = null;
             serviceClientEntryWindow.ShowDialog();
