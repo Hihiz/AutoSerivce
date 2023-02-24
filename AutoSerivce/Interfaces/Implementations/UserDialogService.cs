@@ -1,6 +1,7 @@
 ﻿using AutoSerivce.Models;
 using AutoSerivce.ViewModels;
 using AutoSerivce.Views.Windows;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -87,6 +88,7 @@ namespace AutoSerivce.Interfaces.Implementations
         {
             ClientServiceWindow clientServiceWindow;
             clientServiceWindow = _services.GetRequiredService<ClientServiceWindow>();
+
             clientServiceWindow.Closed += (_, _) => clientServiceWindow = null;
             clientServiceWindow.Show();
         }

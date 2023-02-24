@@ -23,7 +23,7 @@ namespace AutoSerivce.ViewModels
                                                   .Include(s => s.Service)
                                                  /* .OrderBy(d => d.StartTime)*/.ToList(); // по возрастанию, дата которая ближе всего
 
-                CountClientServices = $"Количество: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
+                CountClientServices = $"Количество записанных клиентов: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
             }
 
             SearchLastNameStartTimeCommand = new LambdaCommand(OnSearchLastNameStartTimeCommanExecuted, CanSearchLastNameStartTimeCommanExecute);
@@ -80,7 +80,7 @@ namespace AutoSerivce.ViewModels
                 if (SearchStartTime != null)
                     CurrentClientServices = CurrentClientServices.Where(c => c.StartTime.ToString().Contains(SearchStartTime)).ToList();
 
-                CountClientServices = $"Количество: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
+                CountClientServices = $"Количество записанных клиентов: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
             }
         }
         public ICommand BackMainWindowCommand { get; set; }
@@ -105,6 +105,15 @@ namespace AutoSerivce.ViewModels
             CurrentClientService = (ClientService)p;
 
             _userDialog.OpenServiceClientEntryWindow(CurrentClientService);
+
+            using (AutoServiceContext db = new AutoServiceContext())
+            {
+                CurrentClientServices = db.ClientServices.Include(c => c.Client)
+                                                  .Include(s => s.Service)
+                                                 /* .OrderBy(d => d.StartTime)*/.ToList(); // по возрастанию, дата которая ближе всего
+
+                CountClientServices = $"Количество записанных клиентов: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
+            }
         }
 
         public ICommand ServiceClientEntryWindowCommand { get; set; }
@@ -112,6 +121,15 @@ namespace AutoSerivce.ViewModels
         private void OnServiceClientEntryWindowCommandExecuted(object p)
         {
             _userDialog.OpenServiceClientEntryWindow();
+
+            using (AutoServiceContext db = new AutoServiceContext())
+            {
+                CurrentClientServices = db.ClientServices.Include(c => c.Client)
+                                                  .Include(s => s.Service)
+                                                 /* .OrderBy(d => d.StartTime)*/.ToList(); // по возрастанию, дата которая ближе всего
+
+                CountClientServices = $"Количество записанных клиентов: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
+            }
         }
 
         #endregion

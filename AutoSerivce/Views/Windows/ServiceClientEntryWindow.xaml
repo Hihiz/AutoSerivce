@@ -32,7 +32,6 @@
 
         <Menu Grid.ColumnSpan="2">
             <MenuItem Header="Сервис">
-                <MenuItem Header="Главное окно" Command="{Binding BackMainWindowCommand}"/>
                 <MenuItem Header="Выход" Command="{StaticResource CloseApplicationCommand}"/>
             </MenuItem>
         </Menu>
@@ -54,7 +53,7 @@
             <TextBox Text="{Binding CurrentClientService.Patronymic}"/>
 
             <TextBlock Text="Дата рождения"/>
-            <TextBox Text="{Binding CurrentClientService.Birthday}"/>
+            <TextBox Text="{Binding CurrentClientService.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
 
             <TextBlock Text="Email"/>
             <TextBox Text="{Binding CurrentClientService.Email}"/>

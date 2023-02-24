@@ -2,6 +2,7 @@
 using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
@@ -32,12 +33,13 @@ namespace AutoSerivce.ViewModels
 
                 ClientName = db.Clients.ToList();
                 ServiceName = db.Services.ToList();
+
+                //CurrentClientServices = db.ClientServices.Include(c => c.Client).Include(s => s.Service).ToList();
             }
 
             AddClientCommand = new LambdaCommand(OnAddClientCommandExecuted, CanAddClientCommandExecute);
             AddImageClientCommand = new LambdaCommand(OnAddImageClientCommandExecuted, CanAddImageClientCommandExecute);
             EntryClientServiceCommand = new LambdaCommand(OnEntryClientServiceCommandExecuted, CanEntryClientServiceCommandExecute);
-            BackMainWindowCommand = new LambdaCommand(OnBackMainWindowCommandExecuted, CanBackMainWindowCommandExecute);
         }
 
         public ServiceClientEntryWindowViewModel(IUserDialog userDialog) : this()
@@ -264,6 +266,7 @@ namespace AutoSerivce.ViewModels
                     {
                         db.ClientServices.Add(clientService);
                         db.SaveChanges();
+
                         // в классе ClientService есть свойство на класс Client, через него получаем фамилию имя отчетсво, для доступа к свойствам класса Service делаем также
                         MessageBox.Show($"Клиент {CurrClientService.Client.FirsName} {CurrClientService.Client.LastName} {CurrClientService.Client.Patronymic} записан на услугу {CurrClientService.Service.Title}", "Успешно");
                     }
@@ -286,15 +289,6 @@ namespace AutoSerivce.ViewModels
                     }
                 }
             }
-        }
-
-        public ICommand BackMainWindowCommand { get; set; }
-        private bool CanBackMainWindowCommandExecute(object p) => true;
-        private void OnBackMainWindowCommandExecuted(object p)
-        {
-            _userDialog.OpenMainWindow(Visibility.Visible);
-
-            OnDialogComplete(EventArgs.Empty);
         }
 
         #endregion
