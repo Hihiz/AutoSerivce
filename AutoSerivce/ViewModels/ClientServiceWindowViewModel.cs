@@ -2,6 +2,7 @@
 using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
+using AutoSerivce.Views.Windows;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace AutoSerivce.ViewModels
 
             SearchLastNameStartTimeCommand = new LambdaCommand(OnSearchLastNameStartTimeCommanExecuted, CanSearchLastNameStartTimeCommanExecute);
             BackMainWindowCommand = new LambdaCommand(OnBackMainWindowCommandExecuted, CanBackMainWindowCommandExecute);
+            EditClientServiceCommand = new LambdaCommand(OnEditClientServiceCommandExecuted, CanEditClientServiceCommandExecute);
         }
 
         public ClientServiceWindowViewModel(IUserDialog userDialog) : this()
@@ -39,6 +41,9 @@ namespace AutoSerivce.ViewModels
 
         private IEnumerable<ClientService> _currentClientServices;
         public IEnumerable<ClientService> CurrentClientServices { get => _currentClientServices; set => Set(ref _currentClientServices, value); }
+
+        private ClientService _currentClientService;
+        public ClientService CurrentClientService { get => _currentClientService; set => Set(ref _currentClientService, value); }
 
         private string _title = "Ближайшие записи на услуги";
         public string Title { get => _title; set => Set(ref _title, value); }
@@ -82,6 +87,26 @@ namespace AutoSerivce.ViewModels
             _userDialog.OpenMainWindow(Visibility.Visible);
 
             OnDialogComplete(EventArgs.Empty);
+        }
+
+        public ICommand EditClientServiceCommand { get; set; }
+        private bool CanEditClientServiceCommandExecute(object p)
+        {
+            if (((ClientService)p) == null)
+                return false;
+
+            return true;
+        }
+        private void OnEditClientServiceCommandExecuted(object p)
+        {
+            CurrentClientService = (ClientService)p;
+
+            _userDialog.OpenServiceClientEntryWindow(CurrentClientService);
+
+            //using (AutoServiceContext db = new AutoServiceContext())
+            //{
+            //    CurrentClientServices = db.ClientServices.ToList();
+            //}
         }
 
         #endregion

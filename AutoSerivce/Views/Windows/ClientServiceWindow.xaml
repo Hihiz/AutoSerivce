@@ -29,7 +29,6 @@
                 <ColumnDefinition/>
                 <ColumnDefinition Width="200"/>
             </Grid.ColumnDefinitions>
-
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Width="120">
                 <TextBlock Text="Фамилия клиента" FontSize="14"/>
                 <TextBox Text="{Binding SearchLastName, UpdateSourceTrigger=PropertyChanged}" FontSize="14">
@@ -66,17 +65,34 @@
                   ItemsSource="{Binding CurrentClientServices}"
                   AutoGenerateColumns="False" 
                   IsReadOnly="True"
-                  FontSize="14">
+                  FontSize="14"
+                  x:Name="gridClientServices">
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id Клиента" Binding="{Binding ClientId}"/>
-                <DataGridTextColumn Header="Фамилия Клиента" Binding="{Binding Client.LastName}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding Client.LastName}"/>
+                <DataGridTextColumn Header="Id Услуги" Binding="{Binding ServiceId}"/>
                 <DataGridTextColumn Header="Услуга" Binding="{Binding Service.Title}"/>
                 <DataGridTextColumn Header="Дата записи" Binding="{Binding StartTime}"/>
                 <!--, StringFormat=\{0:dd.MM.yy\}-->
                 <DataGridTextColumn Header="Комментарий" Binding="{Binding Comment}"/>
+
+                <!--<DataGridTemplateColumn Header="Действие">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+
+                            --><!--Не работает--><!--
+                            <Button Content="Изменить" Width="100" Background="#FFFFFFE1" Command="{Binding EditClientServiceCommand}"
+                                    CommandParameter="{Binding ElementName=gridClientServices, Path=SelectedValue}"/>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>-->
+                
             </DataGrid.Columns>
         </DataGrid>
 
+        <Button Content="Изменить" Width="100" Background="#FFFFFFE1" Command="{Binding EditClientServiceCommand}"
+                                    CommandParameter="{Binding ElementName=gridClientServices, Path=SelectedValue}"/>
     </Grid>
 </Window>

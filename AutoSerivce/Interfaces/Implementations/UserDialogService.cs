@@ -97,5 +97,17 @@ namespace AutoSerivce.Interfaces.Implementations
             serviceClientEntryWindow.Closed += (_, _) => serviceClientEntryWindow = null;
             serviceClientEntryWindow.Show();
         }
+
+        public void OpenServiceClientEntryWindow(object item)
+        {
+            ServiceClientEntryWindow serviceClientEntryWindow;
+            serviceClientEntryWindow = _services.GetRequiredService<ServiceClientEntryWindow>();
+
+            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().Title = $"Редактирование клиента: {((ClientService)item).Client.LastName} {((ClientService)item).Client.FirsName} {((ClientService)item).Client.Patronymic} | Id: {((ClientService)item).Client.Id}";
+            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrClientService = (ClientService)item;
+
+            serviceClientEntryWindow.Closed += (_, _) => serviceClientEntryWindow = null;
+            serviceClientEntryWindow.ShowDialog();
+        }
     }
 }
