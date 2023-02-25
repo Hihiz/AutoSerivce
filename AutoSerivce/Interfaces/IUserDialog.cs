@@ -11,6 +11,6 @@ namespace AutoSerivce.Interfaces
         void AdminPanelWindow();
         void OpenClientServiceWindow();
         void OpenServiceClientEntryWindow();
-        void OpenServiceClientEntryWindow(object item);
+        void OpenServiceClientEntryWindow(object item, object clientName, object serviceName);
     }
 }

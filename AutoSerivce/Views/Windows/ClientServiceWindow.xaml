@@ -20,7 +20,7 @@
 
         <Menu Grid.Row="0">
             <MenuItem Header="Сервис">
-                <MenuItem Header="Назад" Command="{Binding BackMainWindowCommand}"/>
+                <MenuItem Header="Главное окно" Command="{Binding BackMainWindowCommand}"/>
                 <MenuItem Header="Регистрация Клиента/Запись на услугу" Command="{Binding ServiceClientEntryWindowCommand}"/>
             </MenuItem>
         </Menu>

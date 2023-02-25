@@ -106,7 +106,7 @@ namespace AutoSerivce.Interfaces.Implementations
             serviceClientEntryWindow.ShowDialog();
         }
 
-        public void OpenServiceClientEntryWindow(object item)
+        public void OpenServiceClientEntryWindow(object item, object clientName, object serviceName)
         {
             ServiceClientEntryWindow serviceClientEntryWindow;
             serviceClientEntryWindow = _services.GetRequiredService<ServiceClientEntryWindow>();
@@ -114,6 +114,9 @@ namespace AutoSerivce.Interfaces.Implementations
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().Title = $"Редактирование клиента: {((ClientService)item).Client.LastName} {((ClientService)item).Client.FirsName} {((ClientService)item).Client.Patronymic} | Id: {((ClientService)item).Client.Id}";
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrClientService = (ClientService)item;
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrentClientService = new Client();
+
+            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().ClientName = (System.Collections.Generic.List<Client>)clientName;
+            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().ServiceName = (System.Collections.Generic.List<Service>)serviceName;
 
             serviceClientEntryWindow.Closed += (_, _) => serviceClientEntryWindow = null;
             serviceClientEntryWindow.ShowDialog();
