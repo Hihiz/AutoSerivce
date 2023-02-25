@@ -226,16 +226,6 @@ namespace AutoSerivce.ViewModels
             MessageBox.Show("Вы вышли из режима администратора", "Успешно");
         }
 
-        //public ICommand AdminMenuItemCommand { get; set; }
-        //private bool CanAdminMenuItemCommandExecute(object p) => true;
-        //private void OnAdminMenuItemCommandExecuted(object p)
-        //{
-        //    if (AdminPanelVisibility == Visibility.Visible)
-        //        AdminMenuItemVisibility = Visibility.Visible;
-
-
-        //}
-
         #endregion
     }
 }

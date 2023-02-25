@@ -91,7 +91,8 @@
             <TextBlock Text="Выберите клиента для записи"/>
             <ComboBox ItemsSource="{Binding ClientName}"
                       DisplayMemberPath="LastName"
-                      SelectedValue="{Binding CurrClientService.Client}"/>
+                      SelectedValue="{Binding CurrClientService.Client}"
+                      IsEditable="False"/>
 
             <TextBlock Text="Выберите услугу"/>
             <ComboBox ItemsSource="{Binding ServiceName}"
