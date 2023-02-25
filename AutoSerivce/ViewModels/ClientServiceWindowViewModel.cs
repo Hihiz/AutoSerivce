@@ -24,6 +24,9 @@ namespace AutoSerivce.ViewModels
                                                  /* .OrderBy(d => d.StartTime)*/.ToList(); // по возрастанию, дата которая ближе всего
 
                 CountClientServices = $"Количество записанных клиентов: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
+
+                ClientName = db.Clients.ToList();
+                ServiceName = db.Services.ToList();
             }
 
             SearchLastNameStartTimeCommand = new LambdaCommand(OnSearchLastNameStartTimeCommanExecuted, CanSearchLastNameStartTimeCommanExecute);
@@ -59,6 +62,14 @@ namespace AutoSerivce.ViewModels
 
         private string _countClientServices;
         public string CountClientServices { get => _countClientServices; set => Set(ref _countClientServices, value); }
+
+        private List<Client> _clientName;
+        public List<Client> ClientName { get => _clientName; set => Set(ref _clientName, value); }
+
+        private List<Service> _serviceName;
+        public List<Service> ServiceName { get => _serviceName; set => Set(ref _serviceName, value); }
+
+
 
         #endregion
 
@@ -104,7 +115,7 @@ namespace AutoSerivce.ViewModels
         {
             CurrentClientService = (ClientService)p;
 
-            _userDialog.OpenServiceClientEntryWindow(CurrentClientService);
+            _userDialog.OpenServiceClientEntryWindow((ClientService)p, ClientName, ServiceName);
 
             using (AutoServiceContext db = new AutoServiceContext())
             {
@@ -113,6 +124,9 @@ namespace AutoSerivce.ViewModels
                                                  /* .OrderBy(d => d.StartTime)*/.ToList(); // по возрастанию, дата которая ближе всего
 
                 CountClientServices = $"Количество записанных клиентов: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
+
+                ClientName = db.Clients.ToList();
+                ServiceName = db.Services.ToList();
             }
         }
 
@@ -129,6 +143,9 @@ namespace AutoSerivce.ViewModels
                                                  /* .OrderBy(d => d.StartTime)*/.ToList(); // по возрастанию, дата которая ближе всего
 
                 CountClientServices = $"Количество записанных клиентов: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
+
+                ClientName = db.Clients.ToList();
+                ServiceName = db.Services.ToList();
             }
         }
 
