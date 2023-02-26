@@ -251,7 +251,6 @@ namespace AutoSerivce.ViewModels
         private void OnEntryClientServiceCommandExecuted(object p)
         {
             //Сделать добавление клиента и его слугу в таблицу ClientService, разобраться с форматом даты при регистрации клиента на дату рождения и на StartTime
-
             using (AutoServiceContext db = new AutoServiceContext())
             {
                 if (CurrClientService.Id == 0)
@@ -269,7 +268,7 @@ namespace AutoSerivce.ViewModels
                         db.ClientServices.Add(clientService);
                         db.SaveChanges();
 
-                        // в классе ClientService есть свойство на класс Client, через него получаем фамилию имя отчетсво, для доступа к свойствам класса Service делаем также
+                        //в классе ClientService есть свойство на класс Client, через него получаем фамилию имя отчетсво, для доступа к свойствам класса Service делаем также
                         MessageBox.Show($"Клиент {CurrClientService.Client.FirsName} {CurrClientService.Client.LastName} {CurrClientService.Client.Patronymic} записан на услугу {CurrClientService.Service.Title}", "Успешно");
                     }
                     catch (Exception ex)
@@ -281,8 +280,12 @@ namespace AutoSerivce.ViewModels
                 {
                     try
                     {
-                        db.ClientServices.Update(CurrClientService);
+                        db.Update(CurrClientService.Client); // CurrClientService.Client - в комбобоксе по выбору фамилии клиента SelectedValue="{Binding CurrClientService.Client}"
+                        db.Update(CurrClientService.Service); // CurrClientService.Service - в комбобоксе по выбору услуги клиента SelectedValue="{Binding CurrClientService.Service}"
+
+                        db.Update(CurrClientService);
                         db.SaveChanges();
+
                         MessageBox.Show($"Запись на услугу изменена", "Успешно");
                     }
                     catch (Exception ex)

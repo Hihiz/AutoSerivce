@@ -69,8 +69,6 @@ namespace AutoSerivce.ViewModels
         private List<Service> _serviceName;
         public List<Service> ServiceName { get => _serviceName; set => Set(ref _serviceName, value); }
 
-
-
         #endregion
 
         #region Команды 
@@ -92,6 +90,9 @@ namespace AutoSerivce.ViewModels
                     CurrentClientServices = CurrentClientServices.Where(c => c.StartTime.ToString().Contains(SearchStartTime)).ToList();
 
                 CountClientServices = $"Количество записанных клиентов: {CurrentClientServices.Count()} из {db.ClientServices.Count()}";
+
+                ClientName = db.Clients.ToList();
+                ServiceName = db.Services.ToList();
             }
         }
         public ICommand BackMainWindowCommand { get; set; }
@@ -115,7 +116,7 @@ namespace AutoSerivce.ViewModels
         {
             CurrentClientService = (ClientService)p;
 
-            _userDialog.OpenServiceClientEntryWindow((ClientService)p, ClientName, ServiceName);
+            _userDialog.OpenServiceClientEntryWindow((ClientService)p, ClientName, ServiceName); /*ClientName ServiceName - передаем их в ServiceClientEntryWindowViewModel*/
 
             using (AutoServiceContext db = new AutoServiceContext())
             {
