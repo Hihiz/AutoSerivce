@@ -41,7 +41,7 @@
             <Image Source="/Resources/ServiceClientIcon/newUser.png" Height="20" HorizontalAlignment="Left" Margin="3, -19, 0, 0" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10">
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="10" IsEnabled="{Binding IsEnabledAddClientPanel}">
 
             <TextBlock Text="Фамилия"/>
             <TextBox Text="{Binding CurrentClientService.LastName, UpdateSourceTrigger=PropertyChanged}"/>

@@ -72,6 +72,9 @@ namespace AutoSerivce.ViewModels
         private List<Service> _serviceName;
         public List<Service> ServiceName { get => _serviceName; set => Set(ref _serviceName, value); }
 
+        private string _isEnabledAddClientPanel = "False";
+        public string IsEnabledAddClientPanel { get => _isEnabledAddClientPanel; set => Set(ref _isEnabledAddClientPanel, value); }
+
         #endregion
 
         #region Команды
