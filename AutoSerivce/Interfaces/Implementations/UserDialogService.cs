@@ -101,7 +101,8 @@ namespace AutoSerivce.Interfaces.Implementations
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().Title = "Регистрация нового клиента";
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrClientService = new ClientService();
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrentClientService = new Client();
-            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().IsEnabledAddClientPanel = "True";
+            //_services.GetRequiredService<ServiceClientEntryWindowViewModel>().IsEnabledAddClientPanel = "False";
+            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().IdVisibility = "Collapsed";
 
             serviceClientEntryWindow.Closed += (_, _) => serviceClientEntryWindow = null;
             serviceClientEntryWindow.ShowDialog();
@@ -116,10 +117,11 @@ namespace AutoSerivce.Interfaces.Implementations
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrClientService = (ClientService)item;
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrentClientService = new Client();
             _services.GetRequiredService<ServiceClientEntryWindowViewModel>().CurrentClientService.PhotoPath = null;
-            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().IsEnabledAddClientPanel = "False";
+            //_services.GetRequiredService<ServiceClientEntryWindowViewModel>().IsEnabledAddClientPanel = "False";
+            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().IdVisibility = "Visibility";
 
-            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().ClientName = (System.Collections.Generic.List<Client>)clientName;
-            _services.GetRequiredService<ServiceClientEntryWindowViewModel>().ServiceName = (System.Collections.Generic.List<Service>)serviceName;
+            //_services.GetRequiredService<ServiceClientEntryWindowViewModel>().ClientName = (System.Collections.Generic.List<Client>)clientName;
+            //_services.GetRequiredService<ServiceClientEntryWindowViewModel>().ServiceName = (System.Collections.Generic.List<Service>)serviceName;
 
             serviceClientEntryWindow.Closed += (_, _) => serviceClientEntryWindow = null;
             serviceClientEntryWindow.ShowDialog();
