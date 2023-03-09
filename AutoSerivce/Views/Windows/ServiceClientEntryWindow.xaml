@@ -71,13 +71,13 @@
                 <Border BorderBrush="#FFFFFFE1" BorderThickness="3">
                     <Image Height="190" Width="270" Stretch="Fill" Source="{Binding CurrentClientService.ImagePath}"/>
                 </Border>
-                <Button Content="Добавить фото" Command="{Binding AddImageClientCommand}"/>
+                <Button Content="Добавить фото" Command="{Binding AddImageClientCommand}" Background="#FFFF9C1A"/>
             </StackPanel>
 
         </StackPanel>
 
         <StackPanel Grid.Row="3">
-            <Button Content="Зарегистрировать клиента" Margin="10" Command="{Binding AddClientCommand}"/>
+            <Button Content="Зарегистрировать клиента" Margin="10" Command="{Binding AddClientCommand}" Background="#FFFF9C1A"/>
         </StackPanel>
 
         <!--После регистрации нового клиента, можем его записать на услгу-->
@@ -88,16 +88,26 @@
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Margin="10">
+            <StackPanel x:Name="panelId" Visibility="{Binding IdVisibility}">
+                <TextBlock Text="Id"/>
+                <TextBox Text="{Binding CurrClientService.Id}" IsEnabled="{Binding IsEnabledClientServiceId}"/>
+            </StackPanel>
+
             <TextBlock Text="Выберите клиента для записи"/>
             <ComboBox ItemsSource="{Binding ClientName}"
                       DisplayMemberPath="LastName"
                       SelectedValue="{Binding CurrClientService.Client}"
-                      IsEditable="False"/>
+                      IsEditable="True"
+                      Text="{Binding CurrClientService.Client.LastName}"/>
 
             <TextBlock Text="Выберите услугу"/>
             <ComboBox ItemsSource="{Binding ServiceName}"
                       DisplayMemberPath="Title"
-                      SelectedValue="{Binding CurrClientService.Service}"/>
+                      SelectedValue="{Binding CurrClientService.Service}"
+                      IsEditable="True"
+                      Text="{Binding CurrClientService.Service.Title}"/>
+
+
 
             <TextBlock Text="Введите дату начала выполнения"/>
             <TextBox Text="{Binding CurrClientService.StartTime}" />
@@ -109,7 +119,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" Grid.Row="3">
-            <Button Content="Записать на услугу" Margin="10" Command="{Binding EntryClientServiceCommand}"/>
+            <Button Content="Записать на услугу" Margin="10" Command="{Binding EntryClientServiceCommand}" Background="#FFFF9C1A"/>
         </StackPanel>
 
     </Grid>

@@ -2,15 +2,12 @@
 using AutoSerivce.Interfaces;
 using AutoSerivce.Models;
 using AutoSerivce.ViewModels.Base;
-using AutoSerivce.Views.Windows;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
@@ -75,6 +72,11 @@ namespace AutoSerivce.ViewModels
         private string _isEnabledAddClientPanel = "False";
         public string IsEnabledAddClientPanel { get => _isEnabledAddClientPanel; set => Set(ref _isEnabledAddClientPanel, value); }
 
+        private string _isEnabledClientServiceId = "False";
+        public string IsEnabledClientServiceId { get => _isEnabledClientServiceId; set => Set(ref _isEnabledClientServiceId, value); }
+
+        private string _idVisibility = "Collapsed";
+        public string IdVisibility { get => _idVisibility; set => Set(ref _idVisibility, value); }
         #endregion
 
         #region Команды
@@ -96,6 +98,7 @@ namespace AutoSerivce.ViewModels
 
             return true;
         }
+
         private void OnAddClientCommandExecuted(object p)
         {
             using (AutoServiceContext db = new AutoServiceContext())
@@ -283,8 +286,15 @@ namespace AutoSerivce.ViewModels
                 {
                     try
                     {
-                        db.Update(CurrClientService.Client); // CurrClientService.Client - в комбобоксе по выбору фамилии клиента SelectedValue="{Binding CurrClientService.Client}"
-                        db.Update(CurrClientService.Service); // CurrClientService.Service - в комбобоксе по выбору услуги клиента SelectedValue="{Binding CurrClientService.Service}"
+                        //
+                        //db.Entry(CurrClientService.Client).State = EntityState.Detached;
+                        //db.Entry(CurrClientService.Service).State = EntityState.Detached;
+                        //db.Entry(CurrClientService).State = EntityState.Detached;
+                        //
+
+
+                        //db.Update(CurrClientService.Client); // CurrClientService.Client - в комбобоксе по выбору фамилии клиента SelectedValue="{Binding CurrClientService.Client}"
+                        //db.Update(CurrClientService.Service); // CurrClientService.Service - в комбобоксе по выбору услуги клиента SelectedValue="{Binding CurrClientService.Service}"
 
                         db.Update(CurrClientService);
                         db.SaveChanges();
