@@ -13,7 +13,7 @@ namespace AutoSerivce
 {
     public partial class App : Application
     {
-        private static IServiceProvider? _services;
+        private static IServiceProvider? _services; /* DI сервис или провайдер сервисов*/
 
         public static IServiceProvider Services => _services ??= InitializeServices().BuildServiceProvider();
 
@@ -81,10 +81,12 @@ namespace AutoSerivce
             services.AddTransient(
                 s =>
                 {
-                    var model = s.GetRequiredService<ServiceClientEntryWindowViewModel>();
+                    //var scope = s.CreateScope();
+                    var model = s/*cope.ServiceProvider*/.GetRequiredService<ServiceClientEntryWindowViewModel>();
                     var window = new ServiceClientEntryWindow { DataContext = model };
 
                     model.DialogComplete += (_, _) => window.Close();
+                    //window.Closed += (_, _) => scope.Dispose();
 
                     return window;
                 });
