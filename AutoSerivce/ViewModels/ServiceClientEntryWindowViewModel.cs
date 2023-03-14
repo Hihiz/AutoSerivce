@@ -292,12 +292,25 @@ namespace AutoSerivce.ViewModels
                         //db.Entry(CurrClientService).State = EntityState.Detached;
                         //
 
+                        // Редактирование внешних ключей
+                        CurrClientService.ClientId = CurrClientService.Client.Id;
+                        CurrClientService.Client = CurrClientService.Client;
 
-                        //db.Update(CurrClientService.Client); // CurrClientService.Client - в комбобоксе по выбору фамилии клиента SelectedValue="{Binding CurrClientService.Client}"
-                        //db.Update(CurrClientService.Service); // CurrClientService.Service - в комбобоксе по выбору услуги клиента SelectedValue="{Binding CurrClientService.Service}"
+                        CurrClientService.ServiceId = CurrClientService.Service.Id;
+                        CurrClientService.Service = CurrClientService.Service;
+                        //
 
                         db.Update(CurrClientService);
+
+                        /*db.Update(CurrClientService.Client);*/ // CurrClientService.Client - в комбобоксе по выбору фамилии клиента SelectedValue="{Binding CurrClientService.Client}"
+                        /*db.Update(CurrClientService.Service);*/ // CurrClientService.Service - в комбобоксе по выбору услуги клиента SelectedValue="{Binding CurrClientService.Service}"
+
                         db.SaveChanges();
+
+
+
+                        ServiceName = db.Services.ToList();
+                        ClientName = db.Clients.ToList();
 
                         MessageBox.Show($"Запись на услугу изменена", "Успешно");
                     }
