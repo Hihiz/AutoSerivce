@@ -25,7 +25,8 @@ namespace AutoSerivce
             services.AddSingleton<AddEditServiceWindowViewModel>();
             services.AddTransient<AdminWindowViewModel>();
             services.AddSingleton<ClientServiceWindowViewModel>();
-            services.AddSingleton<ServiceClientEntryWindowViewModel>();
+            //services.AddSingleton<ServiceClientEntryWindowViewModel>();
+            services.AddScoped<ServiceClientEntryWindowViewModel>();
 
             services.AddSingleton<IUserDialog, UserDialogService>();
 
