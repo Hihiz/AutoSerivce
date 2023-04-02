@@ -94,6 +94,16 @@
                 </DataGridTemplateColumn>-->
 
             </DataGrid.Columns>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction
+                        Command="{Binding EditClientServiceCommand}"
+                        CommandParameter="{Binding ElementName=gridClientServices,  Path=SelectedValue}">
+                    </i:InvokeCommandAction>
+
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </DataGrid>
 
         <Button Content="Изменить запись" Width="100" Background="#FFFFFFE1" Command="{Binding EditClientServiceCommand}"
